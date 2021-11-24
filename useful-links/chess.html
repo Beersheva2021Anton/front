@@ -4,135 +4,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Chess</title>
+    <style>
+        .black {display: inline-block; background-color: black; width: 50px; height: 50px;
+            margin-bottom: -4px; margin-left: -4px; border: 1px solid;}
+        .white {display: inline-block; background-color: white; width: 50px; height: 50px;
+            margin-bottom: -4px; margin-left: -4px; border: 1px solid;}
+        .letter {display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; 
+            font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;
+            margin-bottom: 4px; margin-top: 4px;}
+        .digit {display: inline-block; vertical-align: 20px; font-size: 15px; 
+            font-family: Arial, Helvetica, sans-serif;
+            margin-left: 4px; margin-right: 4px;}
+    </style>
 </head>
 <body>
 
     <label style="display: block; text-align: center;">
         
         <label style="display: block;">
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">A</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">B</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">C</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">D</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">E</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">F</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">G</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">H</label>
+            <label class="letter">A</label>
+            <label class="letter">B</label>
+            <label class="letter">C</label>
+            <label class="letter">D</label>
+            <label class="letter">E</label>
+            <label class="letter">F</label>
+            <label class="letter">G</label>
+            <label class="letter">H</label>
         </label>
 
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">1</label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">1</label>
+            <label class="digit">1</label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="digit">1</label>
         </label>
         
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">2</label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">2</label>
+            <label class="digit">2</label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="digit">2</label>
         </label>
         
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">3</label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">3</label>
+            <label class="digit">3</label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="digit">3</label>
         </label>
         
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">4</label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">4</label>
+            <label class="digit">4</label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="digit">4</label>
         </label>
     
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">5</label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">5</label>
+            <label class="digit">5</label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="digit">5</label>
         </label>
         
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">6</label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">6</label>
+            <label class="digit">6</label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="digit">6</label>
         </label>
     
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">7</label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">7</label>
+            <label class="digit">7</label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="digit">7</label>
         </label>
         
         <label style="display: block;">
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">8</label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: gainsboro; width: 50px; height: 50px;"/></label>
-            <label style="display: inline-block; background-color: black; width: 50px; height: 50px;"></label>
-            <label style="display: inline-block; vertical-align: 20px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">8</label>
+            <label class="digit">8</label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="white"></label>
+            <label class="black"></label>
+            <label class="digit">8</label>
         </label>
 
         <label style="display: block;">
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">A</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">B</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">C</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">D</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">E</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">F</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">G</label>
-            <label style="display: inline-block; font-size: 15px; font-family: Arial, Helvetica, sans-serif; width: 50px; text-align: center;">H</label>
+            <label class="letter">A</label>
+            <label class="letter">B</label>
+            <label class="letter">C</label>
+            <label class="letter">D</label>
+            <label class="letter">E</label>
+            <label class="letter">F</label>
+            <label class="letter">G</label>
+            <label class="letter">H</label>
         </label>
     </label>
     
