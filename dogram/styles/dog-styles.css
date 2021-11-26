@@ -1,0 +1,87 @@
+@font-face {
+    font-family: 'lakeshore';
+    src: url('fonts/LAKESHOR-webfont.svg');
+    src: url('fonts/LAKESHOR-webfont.woff');
+}
+@font-face {
+    font-family: 'airstream';
+    src: url('fonts/Airstream-webfont.svg');
+    src: url('fonts/Airstream-webfont.woff');
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.5vw;
+}
+.logo {
+    font-family: 'lakeshore';
+    font-size: 3em;
+    text-transform: uppercase;
+    background-color: burlywood;
+    color: orangered;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+.main-class {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.details-image {
+    width: 40vw;
+}
+.details-frame {
+    position: relative;
+}
+.details-title {
+    position: absolute;
+    font-family: 'airstream';
+    font-style: italic;
+    font-size: 2em;
+    left: 5vw;
+    bottom: 1vw;
+    background-color: coral;
+    color: whitesmoke;
+}
+.thumbnails-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 20vh;
+    overflow-y: scroll;
+    justify-content: space-around;
+    padding: 0%;
+    list-style: none;
+}
+.thumbnails-item {
+    border: 2px red solid;
+    border-radius: 25%;
+    overflow: hidden;
+}
+.thumbnails-image {
+    width: 10vw;
+}
+.thumbnails-title {
+    font-size: 1em;
+    display: block;
+    text-align: center;
+    background-color: orange;
+    color: black;
+}
+.main-footer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1vw;
+    text-align: center;
+}
+body, html {
+    height: 100%;
+}
