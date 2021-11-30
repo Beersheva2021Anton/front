@@ -46,6 +46,11 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    transition: 0.5s cubic-bezier(0.5, 0.2, 0.75, 3);
+}
+.is-tiny {
+    transform: scale(0.6);
+    transition: 0s;
 }
 .details-image {
     width: var(--details-image-width);
@@ -106,6 +111,9 @@ body {
     background-color: coral;
     color: white;
     height: var(--thumbnails-title-height);
+}
+.thumbnails-item:hover {
+    transform: scale(1.05);
 }
 .main-footer {
     font-family: Arial, Helvetica, sans-serif;

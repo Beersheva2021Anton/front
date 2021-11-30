@@ -2,6 +2,7 @@ const thumbnails = document.querySelectorAll('.thumbnails-anchor');
 const detailedImage = document.querySelector('.details-image');
 const detailedTitle = document.querySelector('.details-title');
 const mainContent = document.querySelector('.main-class');
+const detailsContainer = document.querySelector('.details-container');
 const HIDDEN = 'hidden';
 const SELECTED = 'selected';
 let selectedItem = thumbnails[0].parentElement;
@@ -22,6 +23,10 @@ function setDetails(thumbnail) {
 
 function showDetails() {
     mainContent.classList.remove(HIDDEN);
+    detailsContainer.classList.add("is-tiny");
+    setTimeout(() => {
+        detailsContainer.classList.remove("is-tiny");
+    });
 }
 
 function hideDetails() {
