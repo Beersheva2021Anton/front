@@ -59,13 +59,11 @@ Deferred.prototype.resolve = function(value) {
         value = fun(value);
     });
 }
-
 const dd = new Deferred();
 dd.then(function (res) { console.log('1 ', res); return 'a'; });
 dd.then(function (res) { console.log('2 ', res); return 'b'; });
 dd.then(function (res) { console.log('3 ', res); return 'c'; });
 dd.resolve('hello');
-
 /*
 1  hello
 2  a
