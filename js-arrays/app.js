@@ -89,3 +89,27 @@ let g = 5;
 [d, g] = [g, d];
 console.log(`d = ${d}; g = ${g}`);
 
+let { h, v } = { h: 10, v: function(){console.log('hello')}};
+v();
+
+function toBinary(num) {
+    const res = [];
+    do {
+        let rem = num % 2;
+        num = (num - rem) / 2;
+        res.unshift(rem);
+    } while (num != 0);
+    return res.join('');
+}
+console.log(toBinary(8));
+
+function toOctal(num) {
+    const res = [];
+    do {
+        let rem = num % 8;
+        num = (num - rem) / 8;
+        res.unshift(rem);
+    } while (num != 0);
+    return res.join('');
+}
+console.log(toOctal(8));
