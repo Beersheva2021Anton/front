@@ -18,8 +18,8 @@ d = new Function();
 
 // Primitives values; classes - references
 // console.log(`new Number(12.5) == new Number(12.5) is ${new Number(12.5) == new Number(12.5)}`);
-// console.log(`12.5 == new Number(12.5) is ${12.5 == new Number(12.5)}`);
-// console.log(`12.5 === new Number(12.5) is ${12.5 === new Number(12.5)}`);
+console.log(`12.5 == new Number(12.5) is ${12.5 == new Number(12.5)}`);
+console.log(`12.5 === new Number(12.5) is ${12.5 === new Number(12.5)}`);
 // console.log(`new Number(12.5) == new Number(12.5) is ${JSON.stringify(new Number(12.5)) == JSON.stringify(new Number(12.5))}`);
 // console.log(`20 + '20' is ${20 + '20'}`);
 // console.log(`20 * '20' is ${20 * '20'}`);
