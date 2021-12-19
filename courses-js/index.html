@@ -7,11 +7,12 @@
     <title>College Courses</title>
 </head>
 <body>
-    <!-- <form id="course-form">
+    <div class="row justify-content-sm-center mb-3">
+        <div id="alert"></div>  
+    </div> 
+    <form id="course-form">
         <div class="container">
-            <div class="row justify-content-sm-center mb-3">
-                <div id="alert"></div>  
-            </div>  
+             
             <div class="row justify-content-center mt-4 mt-sm-0">
                 <div class="col-sm-4">
                     <select id="course-name" class="form-select" name="courseName" required>
@@ -70,8 +71,8 @@
                 <button class="col btn btn-outline-secondary" type="reset">Reset</button>
             </div>                                
         </div>
-    </form> -->
-    <!-- <div class="container table-responsive">
+    </form>
+    <div class="container table-responsive">
         <table class="table">
             <thead>
                 <tr id="courses-header"></tr>
@@ -79,28 +80,59 @@
             <tbody id="courses-body">
             </tbody>
         </table>
-    </div> -->
-    <form id="hours-stat-form">
-        <div class="container"></div>
-    </form>
-    <div class="container table-responsive">
-        <table class="table">
-            <thead>
-                <tr id="hours-stat-header"></tr>
-            </thead>
-            <tbody id="hours-stat-body">                
-            </tbody>
-        </table>
     </div>
-    <div class="container table-responsive">
-        <table class="table">
-            <thead>
-                <tr id="cost-stat-header"></tr>
-            </thead>
-            <tbody id="cost-stat-body">                
-            </tbody>
-        </table>
-    </div>
+    <section>
+        <form id="hours-stat-form">
+            <div class="container">
+                <div class="row justify-content-center border border-1">
+                    <div class="col-sm-4 border border-1">
+                        <select id="select-hours" class="form-select" name="interval" required>
+                            <option value hidden disabled selected>--Select hours interval--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit">Get statistics</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="container table-interval-hours">
+            <table class="table">
+                <thead>
+                    <tr id="interval-hours-header">
+                    </tr>
+                </thead>
+                <tbody id="interval-hours-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
+        <form id="cost-stat-form">
+            <div class="container">
+                <div class="row justify-content-center border border-1">
+                    <div class="col-sm-4 border border-1">
+                        <select id="select-cost" class="form-select" name="interval" required>
+                            <option value hidden disabled selected>--Select cost interval--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit">Get statistics</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="container table-interval-cost">
+            <table class="table">
+                <thead>
+                    <tr id="interval-cost-header">
+                    </tr>
+                </thead>
+                <tbody id="interval-cost-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
     <script src="dist/bundle.js"></script>
 </body>
 </html>

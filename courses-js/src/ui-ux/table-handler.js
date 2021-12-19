@@ -9,13 +9,13 @@ export default class TableHandler {
         this.#rmFunName = rmFunName;
         const headerElement = document.getElementById(headerId);
         if (!headerElement) {
-            throw 'Wrong header id';
+            throw 'Wrong header id ' + headerId;
         }
         this.#bodyElement = document.getElementById(bodyId);
         if (!this.#bodyElement){
-            throw 'Wrong body id';
+            throw 'Wrong body id ' + bodyId;
         }
-        fillTableHeader(headerElement, keys, sortFun);
+        fillTableHeader(headerElement, keys, sortFun, rmFunName);
 
         if (sortFun){
             const columnsEl = document.querySelectorAll(`#${headerId} th`);
@@ -33,15 +33,17 @@ export default class TableHandler {
         document.getElementById(id).remove();
     }
     #getRecordData(obj) {
-        return this.#keys.map(k => `<td>${obj[k].constructor.name === "Date" ? 
+        let res = this.#keys.map(k => `<td>${obj[k].constructor.name === "Date" ? 
             obj[k].toISOString().substr(0,10) : obj[k]}</td>`)
-            .join('')
-            .concat(`<td><i class="bi bi-trash" style="cursor: pointer" onclick="${this.#rmFunName}('${obj.id}')"></i></td>`);
+            .join('');
+        return this.#rmFunName 
+        ? res.concat(`<td><i class="bi bi-trash" style="cursor: pointer" onclick="${this.#rmFunName}('${obj.id}')"></i></td>`)
+        : res;
     }
 }
 
-function fillTableHeader(headerElement, keys, sortFun) {
-    headerElement.innerHTML = getColumns(keys, sortFun);
+function fillTableHeader(headerElement, keys, sortFun, remFunName) {
+    headerElement.innerHTML = getColumns(keys, sortFun, remFunName);
 }
 
 // function getColumns(keys, sortFnName){
@@ -51,11 +53,11 @@ function fillTableHeader(headerElement, keys, sortFun) {
 //     }).join('');
 // }
 
-function getColumns(keys, sortFun) {
-    return keys.map(key => {
+function getColumns(keys, sortFun, remFunName) {
+    let res = keys.map(key => {
         return !sortFun ? `<th>${key}</th>` 
             : `<th style="cursor: pointer">${key}</th>`;
     })
-    .join('')
-    .concat(`<th></th>`);
+    .join('');
+    return remFunName ? res.concat(`<th></th>`) : res;
 }

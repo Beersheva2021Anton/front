@@ -76,4 +76,33 @@ export default class College {
     sort(key) {
         return _.sortBy(this.getAllCourses(), key);
     }
+
+    getElementsByHours(value){
+        let interval = value.interval;
+        let arr = this.#coursesProvider.get();
+        let arrCnt =  _.countBy(arr, e => {   
+           return Math.floor(e.hoursNum/interval)*interval;
+        });
+        return this.#getInterval(arrCnt, interval)
+    }
+
+    getElementsByCost(value){
+        let interval = value.interval;
+        let arr = this.#coursesProvider.get();
+        let arrCnt =  _.countBy(arr, e => {   
+           return Math.floor(e.cost/interval)*interval;
+        });
+        return this.#getInterval(arrCnt, interval)
+    }
+
+    #getInterval(array, interval){
+        let res = [];
+        for (let key in array) {
+            let minInterval = key;
+            let maxInterval = +key + +interval - 1;
+            let amount = array[key];
+            res.push({minInterval:minInterval, maxInterval:maxInterval, amount:amount});
+          }
+        return res;
+    }
 }

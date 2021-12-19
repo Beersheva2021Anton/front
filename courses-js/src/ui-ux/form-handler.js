@@ -9,7 +9,7 @@ export default class FormHandler {
     constructor(formId, alertId) {
         this.#formElement = document.getElementById(formId);
         if(!this.#formElement) {
-            throw "Wrong form id";
+            throw "Wrong form id " + formId;
         }
         if(alertId){
             this.#alertElement = document.getElementById(alertId);
