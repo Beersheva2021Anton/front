@@ -1,0 +1,79 @@
+import _ from "lodash";
+import { getRandomElement, getRandomInteger } from "../utilities/random";
+
+export default class College {
+
+    #coursesProvider;
+    #courseData;
+
+    constructor(coursesProvider, courseData) {
+        this.#coursesProvider = coursesProvider;
+        this.#courseData = courseData;
+    }
+
+    addCourse(course) {
+        course.hoursNum = +course.hoursNum;
+        course.cost = +course.cost;
+        course.startDate = new Date(course.startDate);
+        let validationErrors = this.#validate(course);
+        if (validationErrors) {
+            throw validationErrors;
+        }
+        const id = this.#getId();
+        course.id = id;
+        this.#coursesProvider.add(course);
+    }
+
+    removeCourse(id) {
+        this.#coursesProvider.remove(id);
+    }
+
+    #validate(course) {
+        let errMsg = '';
+        if (!this.#courseData.courseNames.includes(course.courseName)){
+            errMsg += '"Course Name"; ';
+        }
+        if (!this.#courseData.lecturers.includes(course.lecturerName)){
+            errMsg += '"Lecturer Name"; ';
+        }
+        if (course.hoursNum < this.#courseData.minHours || 
+            course.hoursNum > this.#courseData.maxHours) {
+            errMsg += '"Hours Number"; ';
+        }
+        if (course.cost < this.#courseData.minCost || course.cost > this.#courseData.maxCost) {
+            errMsg += '"Cost"; ';
+        }
+        if (!this.#courseData.types.includes(course.type)) {
+            errMsg += '"Type"; ';
+        }
+        if (course.dayEvening.length == 0 || 
+            course.dayEvening.length > this.#courseData.timing.length) {
+            errMsg += '"Timing"; ';
+        }
+        course.dayEvening.forEach(element => {
+            if (!this.#courseData.timing.includes(element)){
+                errMsg += '"Timing"; ';
+            }
+        });
+        if (course.startDate.getFullYear() < this.#courseData.minYear || 
+            course.startDate.getFullYear() > this.#courseData.maxYear) {
+                errMsg += '"Start Date"; ';
+            }
+        return errMsg;
+    }
+
+    #getId() {
+        do {
+            var randomId = getRandomInteger(this.#courseData.minId, this.#courseData.maxId);
+        } while(this.#coursesProvider.exists(randomId));
+        return randomId;
+    }
+
+    getAllCourses(){
+        return this.#coursesProvider.get();
+    }
+
+    sort(key) {
+        return _.sortBy(this.getAllCourses(), key);
+    }
+}

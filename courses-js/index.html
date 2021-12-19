@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>College Courses</title>
+</head>
+<body>
+    <!-- <form id="course-form">
+        <div class="container">
+            <div class="row justify-content-sm-center mb-3">
+                <div id="alert"></div>  
+            </div>  
+            <div class="row justify-content-center mt-4 mt-sm-0">
+                <div class="col-sm-4">
+                    <select id="course-name" class="form-select" name="courseName" required>
+                        <option value hidden disabled selected>--Select course name--</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 gy-4 gy-sm-0">
+                    <select id="lecturer-name" class="form-select" name="lecturerName" required>
+                        <option value hidden disabled selected>--Select lecturer name--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-4 mt-sm-0">
+                <div class="col-sm-4">
+                    <label class="form-label" for="hours">Hours</label>
+                    <input type="number" class="form-control" id="hours" name="hoursNum" required>
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label" for="cost">Cost</label>
+                    <input type="number" class="form-control" id="cost" name="cost" required>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-sm-8">
+                    <label class="form-label" for="date">Opening Date</label>
+                    <input type="date" class="form-control" id="date" name="startDate" required>
+                </div>                
+            </div>
+            <div class="col justify-content-center border mt-4 w-sm-75">
+                <label class="d-block text-center fw-bold mb-3">Type</label>
+                <div class="col-4 gx-4 form-check">
+                    <input type="radio" class="form-check-input" id="programming" name="type" 
+                    value="Programming" required>
+                    <label class="form-check-label" for="programming">Programming</label>
+                </div>
+                <div class="col-4 form-check">
+                    <input type="radio" class="form-check-input" id="qa" name="type" 
+                    value="QA">
+                    <label class="form-check-label" for="qa">QA</label>
+                </div>                
+            </div>
+            <div class="col justify-content-center">
+                <div class="col-sm-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="day" name="dayEvening"
+                    value="Day">
+                    <label for="day" class="form-check-label">Day</label>
+                </div>
+                <div class="col-sm-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="evening" name="dayEvening"
+                    value="Evening">
+                    <label for="evening" class="form-check-label">Evening</label>
+                </div>                
+            </div>
+            <div class="row justify-content-sm-center">
+                <button class="col btn btn-outline-primary" type="submit">Submit</button>
+                <button class="col btn btn-outline-secondary" type="reset">Reset</button>
+            </div>                                
+        </div>
+    </form> -->
+    <!-- <div class="container table-responsive">
+        <table class="table">
+            <thead>
+                <tr id="courses-header"></tr>
+            </thead>
+            <tbody id="courses-body">
+            </tbody>
+        </table>
+    </div> -->
+    <form id="hours-stat-form">
+        <div class="container"></div>
+    </form>
+    <div class="container table-responsive">
+        <table class="table">
+            <thead>
+                <tr id="hours-stat-header"></tr>
+            </thead>
+            <tbody id="hours-stat-body">                
+            </tbody>
+        </table>
+    </div>
+    <div class="container table-responsive">
+        <table class="table">
+            <thead>
+                <tr id="cost-stat-header"></tr>
+            </thead>
+            <tbody id="cost-stat-body">                
+            </tbody>
+        </table>
+    </div>
+    <script src="dist/bundle.js"></script>
+</body>
+</html>
