@@ -10,129 +10,144 @@
     <div class="row justify-content-sm-center mb-3">
         <div id="alert"></div>  
     </div> 
-    <form id="course-form">
-        <div class="container">
-             
-            <div class="row justify-content-center mt-4 mt-sm-0">
-                <div class="col-sm-4">
-                    <select id="course-name" class="form-select" name="courseName" required>
-                        <option value hidden disabled selected>--Select course name--</option>
-                    </select>
-                </div>
-                <div class="col-sm-4 gy-4 gy-sm-0">
-                    <select id="lecturer-name" class="form-select" name="lecturerName" required>
-                        <option value hidden disabled selected>--Select lecturer name--</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row justify-content-center mt-4 mt-sm-0">
-                <div class="col-sm-4">
-                    <label class="form-label" for="hours">Hours</label>
-                    <input type="number" class="form-control" id="hours" name="hoursNum" required>
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label" for="cost">Cost</label>
-                    <input type="number" class="form-control" id="cost" name="cost" required>
-                </div>
-            </div>
-            <div class="row justify-content-center mb-3">
-                <div class="col-sm-8">
-                    <label class="form-label" for="date">Opening Date</label>
-                    <input type="date" class="form-control" id="date" name="startDate" required>
-                </div>                
-            </div>
-            <div class="col justify-content-center border mt-4 w-sm-75">
-                <label class="d-block text-center fw-bold mb-3">Type</label>
-                <div class="col-4 gx-4 form-check">
-                    <input type="radio" class="form-check-input" id="programming" name="type" 
-                    value="Programming" required>
-                    <label class="form-check-label" for="programming">Programming</label>
-                </div>
-                <div class="col-4 form-check">
-                    <input type="radio" class="form-check-input" id="qa" name="type" 
-                    value="QA">
-                    <label class="form-check-label" for="qa">QA</label>
-                </div>                
-            </div>
-            <div class="col justify-content-center">
-                <div class="col-sm-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="day" name="dayEvening"
-                    value="Day">
-                    <label for="day" class="form-check-label">Day</label>
-                </div>
-                <div class="col-sm-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="evening" name="dayEvening"
-                    value="Evening">
-                    <label for="evening" class="form-check-label">Evening</label>
-                </div>                
-            </div>
-            <div class="row justify-content-sm-center">
-                <button class="col btn btn-outline-primary" type="submit">Submit</button>
-                <button class="col btn btn-outline-secondary" type="reset">Reset</button>
-            </div>                                
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">My Courses</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Add New Course</button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Statistics</button>
         </div>
-    </form>
-    <div class="container table-responsive">
-        <table class="table">
-            <thead>
-                <tr id="courses-header"></tr>
-            </thead>
-            <tbody id="courses-body">
-            </tbody>
-        </table>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="container table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr id="courses-header"></tr>
+                    </thead>
+                    <tbody id="courses-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <form id="course-form">
+                <div class="container">
+                     
+                    <div class="row justify-content-center mt-4 mt-sm-0">
+                        <div class="col-sm-4">
+                            <select id="course-name" class="form-select" name="courseName" required>
+                                <option value hidden disabled selected>--Select course name--</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 gy-4 gy-sm-0">
+                            <select id="lecturer-name" class="form-select" name="lecturerName" required>
+                                <option value hidden disabled selected>--Select lecturer name--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4 mt-sm-0">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="hours">Hours</label>
+                            <input type="number" class="form-control" id="hours" name="hoursNum" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="cost">Cost</label>
+                            <input type="number" class="form-control" id="cost" name="cost" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-sm-8">
+                            <label class="form-label" for="date">Opening Date</label>
+                            <input type="date" class="form-control" id="date" name="startDate" required>
+                        </div>                
+                    </div>
+                    <div class="col justify-content-center border mt-4 w-sm-75">
+                        <label class="d-block text-center fw-bold mb-3">Type</label>
+                        <div class="col-4 gx-4 form-check">
+                            <input type="radio" class="form-check-input" id="programming" name="type" 
+                            value="Programming" required>
+                            <label class="form-check-label" for="programming">Programming</label>
+                        </div>
+                        <div class="col-4 form-check">
+                            <input type="radio" class="form-check-input" id="qa" name="type" 
+                            value="QA">
+                            <label class="form-check-label" for="qa">QA</label>
+                        </div>                
+                    </div>
+                    <div class="col justify-content-center">
+                        <div class="col-sm-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="day" name="dayEvening"
+                            value="Day">
+                            <label for="day" class="form-check-label">Day</label>
+                        </div>
+                        <div class="col-sm-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="evening" name="dayEvening"
+                            value="Evening">
+                            <label for="evening" class="form-check-label">Evening</label>
+                        </div>                
+                    </div>
+                    <div class="row justify-content-sm-center">
+                        <button class="col btn btn-outline-primary" type="submit">Submit</button>
+                        <button class="col btn btn-outline-secondary" type="reset">Reset</button>
+                    </div>                                
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <section>
+                <form id="hours-stat-form">
+                    <div class="container">
+                        <div class="row justify-content-center border border-1">
+                            <div class="col-sm-4 border border-1">
+                                <select id="select-hours" class="form-select" name="interval" required>
+                                    <option value hidden disabled selected>--Select hours interval--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit">Get statistics</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="container table-interval-hours">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr id="interval-hours-header">
+                            </tr>
+                        </thead>
+                        <tbody id="interval-hours-body">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section>
+                <form id="cost-stat-form">
+                    <div class="container">
+                        <div class="row justify-content-center border border-1">
+                            <div class="col-sm-4 border border-1">
+                                <select id="select-cost" class="form-select" name="interval" required>
+                                    <option value hidden disabled selected>--Select cost interval--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit">Get statistics</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="container table-interval-cost">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr id="interval-cost-header">
+                            </tr>
+                        </thead>
+                        <tbody id="interval-cost-body">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
-    <section>
-        <form id="hours-stat-form">
-            <div class="container">
-                <div class="row justify-content-center border border-1">
-                    <div class="col-sm-4 border border-1">
-                        <select id="select-hours" class="form-select" name="interval" required>
-                            <option value hidden disabled selected>--Select hours interval--</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit">Get statistics</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="container table-interval-hours">
-            <table class="table">
-                <thead>
-                    <tr id="interval-hours-header">
-                    </tr>
-                </thead>
-                <tbody id="interval-hours-body">
-                </tbody>
-            </table>
-        </div>
-    </section>
-    <section>
-        <form id="cost-stat-form">
-            <div class="container">
-                <div class="row justify-content-center border border-1">
-                    <div class="col-sm-4 border border-1">
-                        <select id="select-cost" class="form-select" name="interval" required>
-                            <option value hidden disabled selected>--Select cost interval--</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit">Get statistics</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="container table-interval-cost">
-            <table class="table">
-                <thead>
-                    <tr id="interval-cost-header">
-                    </tr>
-                </thead>
-                <tbody id="interval-cost-body">
-                </tbody>
-            </table>
-        </div>
-    </section>
     <script src="dist/bundle.js"></script>
 </body>
 </html>
