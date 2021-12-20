@@ -73,8 +73,8 @@ export default class College {
         return await this.#coursesProvider.get();
     }
 
-    sort(key) {
-        return _.sortBy(this.getAllCourses(), key);
+    async sort(key) {
+        return _.sortBy(await this.getAllCourses(), key);
     }
 
     async getElementsByHours(value){
