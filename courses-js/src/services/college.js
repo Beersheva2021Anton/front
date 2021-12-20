@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { getRandomElement, getRandomInteger } from "../utilities/random";
+import { getRandomInteger } from "../utilities/random";
 
 export default class College {
 
@@ -11,7 +11,7 @@ export default class College {
         this.#courseData = courseData;
     }
 
-    addCourse(course) {
+    async addCourse(course) {
         course.hoursNum = +course.hoursNum;
         course.cost = +course.cost;
         course.startDate = new Date(course.startDate);
@@ -19,13 +19,13 @@ export default class College {
         if (validationErrors) {
             throw validationErrors;
         }
-        const id = this.#getId();
+        const id = await this.#getId();
         course.id = id;
-        this.#coursesProvider.add(course);
+        return await this.#coursesProvider.add(course);
     }
 
-    removeCourse(id) {
-        this.#coursesProvider.remove(id);
+    async removeCourse(id) {
+        return await this.#coursesProvider.remove(id);
     }
 
     #validate(course) {
@@ -62,33 +62,33 @@ export default class College {
         return errMsg;
     }
 
-    #getId() {
+    async #getId() {
         do {
             var randomId = getRandomInteger(this.#courseData.minId, this.#courseData.maxId);
-        } while(this.#coursesProvider.exists(randomId));
+        } while(await this.#coursesProvider.exists(randomId));
         return randomId;
     }
 
-    getAllCourses(){
-        return this.#coursesProvider.get();
+    async getAllCourses(){
+        return await this.#coursesProvider.get();
     }
 
     sort(key) {
         return _.sortBy(this.getAllCourses(), key);
     }
 
-    getElementsByHours(value){
+    async getElementsByHours(value){
         let interval = value.interval;
-        let arr = this.#coursesProvider.get();
+        let arr = await this.#coursesProvider.get();
         let arrCnt =  _.countBy(arr, e => {   
            return Math.floor(e.hoursNum/interval)*interval;
         });
         return this.#getInterval(arrCnt, interval)
     }
 
-    getElementsByCost(value){
+    async getElementsByCost(value){
         let interval = value.interval;
-        let arr = this.#coursesProvider.get();
+        let arr = await this.#coursesProvider.get();
         let arrCnt =  _.countBy(arr, e => {   
            return Math.floor(e.cost/interval)*interval;
         });
