@@ -20,10 +20,10 @@ class CoursesArray {
 
     add(course) {
         if (this.#getIndex(course.id) >= 0) {
-            return getPromise(undefined, 500, `Course '${course.id}' already exists`);
+            return getPromise(undefined, 100, `Course '${course.id}' already exists`);
         }
         this.#courses.push(course);
-        return getPromise(course, 500);
+        return getPromise(course, 100);
     }
 
     remove(id) {

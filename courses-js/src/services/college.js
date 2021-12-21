@@ -83,7 +83,7 @@ export default class College {
         let arrCnt =  _.countBy(arr, e => {   
            return Math.floor(e.hoursNum/interval)*interval;
         });
-        return this.#getInterval(arrCnt, interval)
+        return this.#getInterval(arrCnt, interval);
     }
 
     async getElementsByCost(value){

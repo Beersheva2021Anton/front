@@ -25,12 +25,12 @@ export default class FormHandler {
         this.#formElement.addEventListener('submit', this.#onSubmit.bind(this, handlerFun));
     }
 
-    #onSubmit(handlerFun, event) {
+    async #onSubmit(handlerFun, event) {
         event.preventDefault();
         const obj = this.#inputElements.reduce(createObject, {});
         try {
             hideAlert(this.#alertElement);
-            handlerFun(obj);
+            await handlerFun(obj);
             this.#formElement.reset();
         }
         catch(validationErrors) {            
