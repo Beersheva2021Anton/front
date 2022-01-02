@@ -33,7 +33,10 @@ export default class FormHandler {
             await handlerFun(obj);
             this.#formElement.reset();
         }
-        catch(validationErrors) {            
+        catch(validationErrors) {    
+            if (validationErrors == 'Server is unavailable') {
+                throw validationErrors;
+            }
             showAlert(this.#alertElement, validationErrors);
         }
     }

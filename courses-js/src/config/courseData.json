@@ -32,5 +32,6 @@
     "timing": [
         "Day",
         "Evening"
-    ]
+    ],
+    "pollerInterval": 2000
 }

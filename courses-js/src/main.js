@@ -10,6 +10,7 @@ import createCourse from "./models/Course";
 import FormHandler from "./ui-ux/form-handler";
 import TableHandler from "./ui-ux/table-handler";
 import Spinner from "./ui-ux/spinner";
+import Navigator from "./ui-ux/navigator";
 
 const N_RANDOM_COURSES = 20;
 const remFnName = 'remCourse';
@@ -26,12 +27,17 @@ const tableIntervalHours = new TableHandler("interval-hours-header", "interval-h
 const tableIntervalcost = new TableHandler("interval-cost-header", "interval-cost-body", 
     ["minInterval", "maxInterval", "amount"]);
 const spinner = new Spinner('spinner');
+let coursesState = '';
+const navigator = new Navigator('nav-tab');
 
 // Functions
 async function waitWithSpinner(awaitFunc) {
+    hideAlert('alert');
     spinner.show();
     try {
         return await awaitFunc();
+    } catch(err) {
+        showAlert('alert', err);
     } finally {
         spinner.hide();
     }       
@@ -54,12 +60,14 @@ async function createRandomCourses(college, nCourses) {
             await college.addCourse(course);
             tableCourses.addRow(course, course.id);
         }
+    } else {
+        displayCourses(coursesArr);
     }
 }
-async function debugDisplayCollege(college) {
-    let coursesArr = await college.getAllCourses();
-    coursesArr.forEach(element => {
-        console.log(JSON.stringify(element));
+function displayCourses(courses) {
+    tableCourses.clear();
+    courses.forEach(course => {
+        tableCourses.addRow(course, course.id);
     });
 }
 async function coursesSort(key) {
@@ -87,6 +95,30 @@ async function getIntervalCost(interval) {
     let arr = await waitWithSpinner(college.getElementsByCost.bind(college, interval));
     arr.forEach(c => tableIntervalcost.addRow(c, c.amount));   
 }
+async function poller() {
+    if (isCoursesListActive()) {
+        const courses = await college.getAllCourses();
+        const coursesCurrentState = JSON.stringify(courses);
+        if (coursesCurrentState !== coursesState) {
+            coursesState = coursesCurrentState;
+            displayCourses(courses);
+        }
+    }
+}
+function isCoursesListActive() {
+    return navigator.getActiveTab() == 'nav-home-tab';
+}
+function showAlert(alertId, message) {
+    let alertElement = document.getElementById(alertId);
+    alertElement.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>${message}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`;
+}
+function hideAlert(alertId) {
+    let alertElement = document.getElementById(alertId);
+    alertElement.innerHTML = '';
+}
 
 // Actions
 createRandomCourses(college, N_RANDOM_COURSES);
@@ -104,3 +136,5 @@ formHoursStatistics.addHandler(async interval => getIntervalHours(interval));
 
 FormHandler.fillOptions("select-cost", statisticsData.costStatisticsIntervals);
 formCostStatistics.addHandler(async interval => getIntervalCost(interval));
+
+setInterval(poller, courseData.pollerInterval);
