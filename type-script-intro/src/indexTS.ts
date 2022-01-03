@@ -104,3 +104,8 @@ const line = new Line(p, p);
 const rect = new Square(p, 5);
 line.draw();
 rect.draw();
+
+// ***************************
+
+const map: Map<string, number> = new Map([["123", 456]]);
+const keys: string[] = Array.from(map.keys());
