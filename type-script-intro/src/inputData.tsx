@@ -5,20 +5,21 @@ type InputDataProps = {
     timeZoneFn: (timeZone: string) => void
 }
 const InputData: React.FC<InputDataProps> = (props) => {
-    let inputColorsEl: any;
-    let inputTZEl: any;
+
+    const inputColorsEl = React.useRef<any>();
+    const inputTZEl = React.useRef<any>();
 
     React.useEffect(() => {
-        inputColorsEl = document.getElementById("input-colors");
-        inputTZEl = document.getElementById("input-tz");
+        inputColorsEl.current = document.getElementById("input-colors");
+        inputTZEl.current = document.getElementById("input-tz");
     }, []);
 
     function returnColors() {
-        const colorsStr: string = inputColorsEl.value;
+        const colorsStr: string = inputColorsEl.current.value;
         props.colorsFn(colorsStr.split(' '));
     }
     function returnTimeZone() {
-        props.timeZoneFn(inputTZEl.value);
+        props.timeZoneFn(inputTZEl.current.value);
     }
     return <div>
         <input id="input-colors" placeholder="Enter colors separated by space"/><button onClick={returnColors}>GO</button>
