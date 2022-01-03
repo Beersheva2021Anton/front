@@ -5,16 +5,17 @@ var React = require("react");
 var time_zones_1 = require("./time-zones");
 var Clock = function (props) {
     var _a = React.useState(new Date()), date = _a[0], setDate = _a[1];
-    var timeZonesParsed = getTimeZones(props.timeZone);
+    var timeZonesParsed = React.useRef([]);
     function tic() {
         console.log("tic");
         setDate(new Date());
     }
     React.useEffect(function () {
+        timeZonesParsed.current = getTimeZones(props.timeZone);
         var interval = setInterval(tic, 1000);
         return function () { return clearInterval(interval); }; // вызывается при размонтировании
-    }, []); // [] - пустой массив отслеживаемых компонентов
-    return React.createElement("div", null, timeZonesParsed.map(function (tz, index) { return React.createElement("div", { key: index },
+    }, [props.timeZone]); // [] - пустой массив отслеживаемых компонентов
+    return React.createElement("div", null, timeZonesParsed.current.map(function (tz, index) { return React.createElement("div", { key: index },
         React.createElement("h2", null,
             "DateTime ",
             tz,

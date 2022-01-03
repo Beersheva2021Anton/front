@@ -3,19 +3,21 @@ import * as React from "react";
 import timeZones from "./time-zones";
 
 const Clock: React.FC<{ timeZone: string }> = (props) => {
+
     const [date, setDate] = React.useState<Date>(new Date());
-    const timeZonesParsed: string[] = getTimeZones(props.timeZone);
+    let timeZonesParsed = React.useRef<string[]>([]);
     function tic() {
         console.log("tic");
         setDate(new Date());
     }
     React.useEffect(() => {
+        timeZonesParsed.current = getTimeZones(props.timeZone);
         const interval = setInterval(tic, 1000);
         return () => clearInterval(interval); // вызывается при размонтировании
-    }, []) // [] - пустой массив отслеживаемых компонентов
+    }, [ props.timeZone ]) // [] - пустой массив отслеживаемых компонентов
 
     return <div>
-        {timeZonesParsed.map((tz, index) => <div key={index}>
+        {timeZonesParsed.current.map((tz, index) => <div key={index}>
             <h2>DateTime {tz} time-zone</h2>
             <h3>{date.toLocaleString('ru', { timeZone: tz })}</h3>
         </div>)}
