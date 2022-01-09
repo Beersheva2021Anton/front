@@ -1,4 +1,5 @@
 import * as React from "react";
+import Buttons from "./buttons";
 import Clock from "./clock";
 import Colors from "./colors";
 import InputData from "./inputData";
@@ -8,11 +9,13 @@ const App: React.FC = () => {
 
     const [colors, setColors] = React.useState<string[]>(["red", "green", "blue", "yellow", "brown"]);
     const [timeZone, setTZ] = React.useState<string>("Asia/Jerusalem");
+    const [btnNum, setBtn] = React.useState<number>(0);
     
     return <div style={style}>
-        <InputData colorsFn={setColors} timeZoneFn={setTZ}></InputData>
-        <Colors colors={colors}></Colors>
-        <Clock timeZone={timeZone}></Clock>
+        <Buttons changeBtn={setBtn}></Buttons>
+        {btnNum == 1 && <InputData colorsFn={setColors} timeZoneFn={setTZ}></InputData>}
+        {btnNum == 2 && <Colors colors={colors}></Colors>}
+        {btnNum == 3 && <Clock timeZone={timeZone}></Clock>}
     </div>;
 }
 
