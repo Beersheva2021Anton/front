@@ -1,9 +1,8 @@
-import { Box, Drawer, IconButton, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Box, Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
 import { FC, useState } from "react";
 import { RouteType } from "../../models/common/route-type";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
-import { display } from "@mui/system";
 
 const NavigatorDrawer: FC<{ items: RouteType[] }> = (props) => {
 

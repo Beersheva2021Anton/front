@@ -1,8 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import NavigatorDrawer from './components/common/navigator-drawer';
-import NavigatorWeb from './components/common/navigator-web';
+import NavigatorResponsive from './components/common/navigator-responsive';
 import { PATH_COURSES, routes } from './config/routes-config';
 
 const theme = createTheme();
@@ -25,8 +24,7 @@ const App: FC = () => {
   
   return <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <NavigatorDrawer items={routes} />
-      {/* <NavigatorWeb items={routes} /> */}
+      <NavigatorResponsive items={routes} />
       <Routes>
         {getRoutes()}
         <Route path='/' element={<Navigate to={PATH_COURSES} />} />
