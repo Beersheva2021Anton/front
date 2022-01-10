@@ -26,7 +26,7 @@ const App: FC = () => {
   return <ThemeProvider theme={theme}>
     <BrowserRouter>
       <NavigatorDrawer items={routes} />
-      <NavigatorWeb items={routes} />
+      {/* <NavigatorWeb items={routes} /> */}
       <Routes>
         {getRoutes()}
         <Route path='/' element={<Navigate to={PATH_COURSES} />} />
