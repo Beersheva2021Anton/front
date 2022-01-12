@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
 import { PATH_COURSES, routes } from './config/routes-config';
@@ -8,21 +8,26 @@ import { getRandomElement, getRandomInteger, getRandomDate } from './utils/rando
 import CourseType from './models/course-type';
 import CoursesStore from './models/courses-store';
 import CoursesContext, { defaultCourses } from './store/context';
+import CoursesServiceRest from './services/courses-service-rest';
+import CoursesService from './services/courses-service';
+import College from './services/college';
 
 const theme = createTheme();
+const service: CoursesService = new CoursesServiceRest(courseData.serverURL);
+const college: College = new College(service);
 
-theme.typography.body1 = {
-  fontSize: '1.2rem',
-  '@media (min-width:568px)': {
-    fontSize: '2rem'
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2.4rem',
-  },
-};
+// theme.typography.body1 = {
+//   fontSize: '1.2rem',
+//   '@media (min-width:568px)': {
+//     fontSize: '2rem'
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '2.4rem',
+//   },
+// };
 
 function getRandomCourse(): CourseType {
-  let id = getRandomInteger(100000, 999999);
+  let id = getRandomInteger(courseData.minId, courseData.maxId);
   let courseName = getRandomElement(courseData.courseNames);
   let lecturerName = getRandomElement(courseData.lecturers);
   let hours = getRandomInteger(courseData.minHours, courseData.maxHours);
@@ -43,16 +48,27 @@ const App: FC = () => {
   currentList.add = addCourse;
   currentList.remove = removeCourse;
 
-  function addCourse() {
-    let course = getRandomCourse();
-    currentList.list.push(course);
+  useEffect(() => {
+    loadCourses(); // for the first loading
+    const interval = setInterval(loadCourses, courseData.pollerInterval);
+    return () => clearInterval(interval);
+  }, []);
+
+  async function loadCourses() {
+    const coursesArr = await college.getAllCourses();
+    currentList.list = coursesArr;
     setCurrentList({...currentList});
   }
+
+  async function addCourse() {
+    let course = getRandomCourse();
+    await college.addCourse(course);
+    loadCourses(); // for quick component reload
+  }
   
-  function removeCourse(id: number) {
-    let ind = currentList.list.findIndex(c => c.id === id);
-    currentList.list.splice(ind, 1);
-    setCurrentList({...currentList});
+  async function removeCourse(id: number) {
+    await college.removeCourse(id);
+    loadCourses(); // for quick component reload
   }
 
   function getRoutes(): ReactNode[] {

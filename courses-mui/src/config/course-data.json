@@ -33,5 +33,6 @@
         "Day",
         "Evening"
     ],
-    "pollerInterval": 2000
+    "pollerInterval": 3000,
+    "serverURL": "http://localhost:3500/courses"
 }

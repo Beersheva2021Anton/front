@@ -1,0 +1,100 @@
+{
+  "courses": [
+    {
+      "id": 389595,
+      "name": "HTML",
+      "lecturer": "Yackob",
+      "hoursNum": 535,
+      "cost": 19722,
+      "type": "QA",
+      "startAt": "2016-11-13T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ]
+    },
+    {
+      "id": 725156,
+      "name": "CSS",
+      "lecturer": "Asher",
+      "hoursNum": 771,
+      "cost": 16260,
+      "type": "QA",
+      "startAt": "2019-08-14T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ]
+    },
+    {
+      "id": 548102,
+      "name": "QA Automation",
+      "lecturer": "Yackob",
+      "hoursNum": 84,
+      "cost": 13049,
+      "type": "Programming",
+      "startAt": "2019-07-09T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ]
+    },
+    {
+      "id": 718235,
+      "name": "JS",
+      "lecturer": "Asher",
+      "hoursNum": 432,
+      "cost": 12017,
+      "type": "Programming",
+      "startAt": "2019-11-23T22:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ]
+    },
+    {
+      "id": 561655,
+      "name": "Java Core",
+      "lecturer": "Abraham",
+      "hoursNum": 464,
+      "cost": 15326,
+      "type": "QA",
+      "startAt": "2019-04-17T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ]
+    },
+    {
+      "id": 370914,
+      "name": "QA Automation",
+      "lecturer": "Naftali",
+      "hoursNum": 106,
+      "cost": 13853,
+      "type": "Programming",
+      "startAt": "2016-05-09T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ]
+    },
+    {
+      "id": 685026,
+      "name": "JS",
+      "lecturer": "Yackob",
+      "hoursNum": 478,
+      "cost": 10535,
+      "type": "QA",
+      "startAt": "2015-08-10T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ]
+    },
+    {
+      "id": 554821,
+      "name": "QA Manual",
+      "lecturer": "Yosef",
+      "hoursNum": 661,
+      "cost": 10365,
+      "type": "QA",
+      "startAt": "2016-01-04T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ]
+    }
+  ]
+}
