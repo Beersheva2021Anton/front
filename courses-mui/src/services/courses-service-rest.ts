@@ -6,7 +6,7 @@ export default class CoursesServiceRest implements CoursesService {
     constructor(private url: string) {}
 
     getUrlId(id: number): string {
-        return `${this.url}/${encodeURIComponent(id)}`;
+        return `${this.url}/${id}`;
     }
 
     add(course: CourseType): Promise<CourseType> {
@@ -23,11 +23,13 @@ export default class CoursesServiceRest implements CoursesService {
         }
     }
 
-    remove(id: number): Promise<CourseType> {
+    async remove(id: number): Promise<CourseType> {
         try {
-            return fetch(this.getUrlId(id), {
+            const oldCourse = await this.get(id);
+            await fetch(this.getUrlId(id), {
                 method: "DELETE"
-            }).then(r => r.json()) as Promise<CourseType>;
+            });
+            return oldCourse as CourseType;
         } catch {
             throw new Error('Server is unavailable');
         }
@@ -35,7 +37,8 @@ export default class CoursesServiceRest implements CoursesService {
 
     exists(id: number): Promise<boolean> {
         try {
-            return fetch(this.getUrlId(id)).then(r => r.ok) as Promise<boolean>;
+            return fetch(this.getUrlId(id))
+                .then(r => r.ok) as Promise<boolean>;
         } catch {
             throw new Error('Server is unavailable');
         }
@@ -51,15 +54,17 @@ export default class CoursesServiceRest implements CoursesService {
         }
     }
 
-    update(id: number, course: CourseType): Promise<CourseType> {
+    async update(id: number, course: CourseType): Promise<CourseType> {
         try {
-            return fetch(this.getUrlId(id), {
+            const oldCourse = await this.get(id);
+            await fetch(this.getUrlId(id), {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(course)
-            }).then(r => r.json()) as Promise<CourseType>;
+            });
+            return oldCourse as CourseType;
         } catch {
             throw new Error('Server is unavailable');
         }

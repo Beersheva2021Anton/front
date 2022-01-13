@@ -54,21 +54,20 @@ const App: FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  async function loadCourses() {
-    const coursesArr = await college.getAllCourses();
-    currentList.list = coursesArr;
-    setCurrentList({...currentList});
+  function loadCourses() {
+    college.getAllCourses().then(arr => {
+      currentList.list = arr;
+      setCurrentList({...currentList});
+    });
   }
 
-  async function addCourse() {
+  function addCourse() {
     let course = getRandomCourse();
-    await college.addCourse(course);
-    loadCourses(); // for quick component reload
+    college.addCourse(course).then(() => loadCourses());
   }
   
-  async function removeCourse(id: number) {
-    await college.removeCourse(id);
-    loadCourses(); // for quick component reload
+  function removeCourse(id: number) {
+    college.removeCourse(id).then(() => loadCourses());
   }
 
   function getRoutes(): ReactNode[] {
