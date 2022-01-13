@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { Box, createTheme, List, ListItem, ThemeProvider } from '@mui/material';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
@@ -11,6 +11,7 @@ import CoursesContext, { defaultCourses } from './store/context';
 import CoursesServiceRest from './services/courses-service-rest';
 import CoursesService from './services/courses-service';
 import College from './services/college';
+import PublisherNumbers from './publisher-numbers';
 
 const theme = createTheme();
 const service: CoursesService = new CoursesServiceRest(courseData.serverURL);
@@ -42,49 +43,35 @@ function getRandomCourse(): CourseType {
     type: type, startAt: startDate, dayEvening: timing};
 }
 
+const publisher = new PublisherNumbers();
+
 const App: FC = () => {
-
-  const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
-  currentList.add = addCourse;
-  currentList.remove = removeCourse;
-
-  useEffect(() => {
-    loadCourses(); // for the first loading
-    const interval = setInterval(loadCourses, courseData.pollerInterval);
-    return () => clearInterval(interval);
-  }, []);
-
-  function loadCourses() {
-    college.getAllCourses().then(arr => {
-      currentList.list = arr;
-      setCurrentList({...currentList});
-    });
-  }
-
-  function addCourse() {
-    let course = getRandomCourse();
-    college.addCourse(course).then(() => loadCourses());
-  }
   
-  function removeCourse(id: number) {
-    college.removeCourse(id).then(() => loadCourses());
-  }
+  const [numbers, setNumbers] = useState<number[]>([]);
+  useEffect(() => {
+    const subscription = publisher.getNumbers().subscribe ({
+      next(arr: number[]) {
+        setNumbers(arr);
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete(){
+        console.log('Complete');
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+  console.log('After subscribe')
 
-  function getRoutes(): ReactNode[] {
-    return routes.map(r => <Route key={r.path} path={r.path} element={r.element} />);
-  }
-
-  return <CoursesContext.Provider value={currentList}>
-    <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <NavigatorResponsive items={routes} />
-      <Routes>
-        {getRoutes()}
-        <Route path='/' element={<Navigate to={PATH_COURSES} />} />
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>
-  </CoursesContext.Provider>
+  function getItems() {
+    return numbers.map((n, index) => <ListItem key={index}>{n}</ListItem>);
+  }  
+  return <Box>
+    <List>
+      {getItems()}
+    </List>
+  </Box>;
 }
 
 export default App;
