@@ -48,7 +48,8 @@ export default class CoursesServiceRest implements CoursesService {
         try {
             return id === undefined 
                 ? fetch(this.url).then(r => r.json()) as Promise<CourseType[]>
-                : fetch(this.getUrlId(id)).then(r => r.json()) as Promise<CourseType>;
+                : fetch(this.getUrlId(id))
+                    .then(r => r.json()) as Promise<CourseType>;
         } catch {
             throw new Error('Server is unavailable');
         }

@@ -1,5 +1,4 @@
 import CourseType from "../models/course-type";
-import Observable from "rxjs";
 
 interface CoursesService {
     add(course: CourseType): Promise<CourseType>;

@@ -38,8 +38,10 @@ function getRandomCourse(): CourseType {
     [courseData.timing[timingInd]] : courseData.timing;
   let startDate = getRandomDate(courseData.minYear, courseData.maxYear);
 
-  return { id: id, name: courseName, lecturer: lecturerName, hoursNum: hours, cost: cost, 
-    type: type, startAt: startDate, dayEvening: timing};
+  return {
+    id: id, name: courseName, lecturer: lecturerName, hoursNum: hours, cost: cost,
+    type: type, startAt: startDate, dayEvening: timing
+  };
 }
 
 const App: FC = () => {
@@ -49,25 +51,35 @@ const App: FC = () => {
   currentList.remove = removeCourse;
 
   useEffect(() => {
-    loadCourses(); // for the first loading
-    const interval = setInterval(loadCourses, courseData.pollerInterval);
-    return () => clearInterval(interval);
+    college.getAllCourses().then(arr => updateContext(arr));
+    const subscription = college.publishCourses(courseData.pollerInterval).subscribe({
+      next(courses: CourseType[]) {
+        updateContext(courses);
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete() {
+        console.log('publishCourses done');
+      }
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
-  function loadCourses() {
-    college.getAllCourses().then(arr => {
-      currentList.list = arr;
-      setCurrentList({...currentList});
-    });
+  function updateContext(courses: CourseType[]): void {
+    currentList.list = courses;
+    setCurrentList({ ...currentList });
   }
 
-  function addCourse() {
+  async function addCourse() {
     let course = getRandomCourse();
-    college.addCourse(course).then(() => loadCourses());
+    await college.addCourse(course);
+    college.getAllCourses().then(arr => updateContext(arr));
   }
-  
-  function removeCourse(id: number) {
-    college.removeCourse(id).then(() => loadCourses());
+
+  async function removeCourse(id: number) {
+    await college.removeCourse(id);
+    college.getAllCourses().then(arr => updateContext(arr));
   }
 
   function getRoutes(): ReactNode[] {
@@ -76,14 +88,14 @@ const App: FC = () => {
 
   return <CoursesContext.Provider value={currentList}>
     <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <NavigatorResponsive items={routes} />
-      <Routes>
-        {getRoutes()}
-        <Route path='/' element={<Navigate to={PATH_COURSES} />} />
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>
+      <BrowserRouter>
+        <NavigatorResponsive items={routes} />
+        <Routes>
+          {getRoutes()}
+          <Route path='/' element={<Navigate to={PATH_COURSES} />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </CoursesContext.Provider>
 }
 
