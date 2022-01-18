@@ -2,6 +2,7 @@ import CourseType from "../models/course-type";
 import CoursesService from "./courses-service";
 import courseData from "../config/course-data.json"
 import { Observable } from "rxjs";
+import { AUTH_TOKEN } from "./courses-service-rest";
 
 export default class College {
 
@@ -91,7 +92,9 @@ export default class College {
         return new Observable<CourseType[]>(subscriber => {
             const interval = setInterval(() => {
                 try {
-                    this.getAllCourses().then(arr => subscriber.next(arr));
+                    if (!!localStorage.getItem(AUTH_TOKEN)) {
+                        this.getAllCourses().then(arr => subscriber.next(arr));
+                    }
                 } catch(err) {
                     subscriber.error(err);
                 }

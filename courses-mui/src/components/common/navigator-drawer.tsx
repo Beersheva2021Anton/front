@@ -1,5 +1,5 @@
 import { Box, Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { RouteType } from "../../models/common/route-type";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,6 +15,10 @@ const NavigatorDrawer: FC<{ items: RouteType[] }> = (props) => {
         let res = items.find(item => item.path === path);
         return res ? res.label : items[0].label;
     }
+
+    useEffect(() => {
+        setCurrentItem(getCurrentItem(location.pathname, props.items));
+    }, [props.items]);
 
     function setDrawer() {
         setVisibleDrawer(!visibleDrawer);

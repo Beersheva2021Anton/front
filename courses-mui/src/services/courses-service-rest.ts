@@ -1,6 +1,13 @@
 import CourseType from "../models/course-type";
 import CoursesService from "./courses-service";
 
+export const AUTH_TOKEN = "auth_token";
+
+function getHeaders(): { Authorization: string, "Content-Type": string } {
+    return { Authorization: "Bearer " + localStorage.getItem(AUTH_TOKEN),
+        "Content-Type": "application/json" };
+}
+
 export default class CoursesServiceRest implements CoursesService {
 
     constructor(private url: string) {}
@@ -10,12 +17,11 @@ export default class CoursesServiceRest implements CoursesService {
     }
 
     add(course: CourseType): Promise<CourseType> {
+        (course as any).userId = 1;
         try {
             return fetch(this.url, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: getHeaders(),
                 body: JSON.stringify(course)
             }).then(r => r.json()) as Promise<CourseType>;
         } catch {
@@ -27,7 +33,8 @@ export default class CoursesServiceRest implements CoursesService {
         try {
             const oldCourse = await this.get(id);
             await fetch(this.getUrlId(id), {
-                method: "DELETE"
+                method: "DELETE",
+                headers: getHeaders()
             });
             return oldCourse as CourseType;
         } catch {
@@ -37,7 +44,9 @@ export default class CoursesServiceRest implements CoursesService {
 
     exists(id: number): Promise<boolean> {
         try {
-            return fetch(this.getUrlId(id))
+            return fetch(this.getUrlId(id), {
+                headers: getHeaders()
+            })
                 .then(r => r.ok) as Promise<boolean>;
         } catch {
             throw new Error('Server is unavailable');
@@ -47,8 +56,12 @@ export default class CoursesServiceRest implements CoursesService {
     get(id?: number): Promise<CourseType[]> | Promise<CourseType> {
         try {
             return id === undefined 
-                ? fetch(this.url).then(r => r.json()) as Promise<CourseType[]>
-                : fetch(this.getUrlId(id))
+                ? fetch(this.url, {
+                    headers: getHeaders()
+                }).then(r => r.json()) as Promise<CourseType[]>
+                : fetch(this.getUrlId(id), {
+                    headers: getHeaders()
+                })
                     .then(r => r.json()) as Promise<CourseType>;
         } catch {
             throw new Error('Server is unavailable');
@@ -60,9 +73,7 @@ export default class CoursesServiceRest implements CoursesService {
             const oldCourse = await this.get(id);
             await fetch(this.getUrlId(id), {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: getHeaders(),
                 body: JSON.stringify(course)
             });
             return oldCourse as CourseType;

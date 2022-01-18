@@ -2,19 +2,18 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
-import { PATH_COURSES, routes } from './config/routes-config';
+import { PATH_COURSES, PATH_LOGIN, routes } from './config/routes-config';
 import courseData from './config/course-data.json';
 import { getRandomElement, getRandomInteger, getRandomDate } from './utils/random';
 import CourseType from './models/course-type';
 import CoursesStore from './models/courses-store';
 import CoursesContext, { defaultCourses } from './store/context';
-import CoursesServiceRest from './services/courses-service-rest';
-import CoursesService from './services/courses-service';
-import College from './services/college';
+import { Subscription } from 'rxjs';
+import { college, authService } from './config/service-config';
+import { UserData } from './models/common/user-data';
+import { RouteType } from "./models/common/route-type";
 
 const theme = createTheme();
-const service: CoursesService = new CoursesServiceRest(courseData.serverURL);
-const college: College = new College(service);
 
 // theme.typography.body1 = {
 //   fontSize: '1.2rem',
@@ -52,7 +51,16 @@ const App: FC = () => {
 
   useEffect(() => {
     college.getAllCourses().then(arr => updateContext(arr));
-    const subscription = college.publishCourses(courseData.pollerInterval).subscribe({
+    const coursesDataSubscr = getCoursesData();
+    const userDataSubscr = getUserData();
+    return () => {
+      coursesDataSubscr.unsubscribe();
+      userDataSubscr.unsubscribe();
+    };
+  }, []);
+
+  function getCoursesData(): Subscription {
+    return college.publishCourses(courseData.pollerInterval).subscribe({
       next(courses: CourseType[]) {
         updateContext(courses);
       },
@@ -62,9 +70,20 @@ const App: FC = () => {
       complete() {
         console.log('publishCourses done');
       }
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+    })
+  }
+
+  function getUserData(): Subscription {
+    return authService.getUserData().subscribe({
+      next(data: UserData) {
+        currentList.userData = data;
+        setCurrentList({...currentList});
+      },
+      error(err) {
+        console.log(err);
+      }
+    })
+  }
 
   function updateContext(courses: CourseType[]): void {
     currentList.list = courses;
@@ -83,16 +102,32 @@ const App: FC = () => {
   }
 
   function getRoutes(): ReactNode[] {
-    return routes.map(r => <Route key={r.path} path={r.path} element={r.element} />);
+    return getRelevantRoutes().map(r => 
+      <Route key={r.path} path={r.path} element={r.element} />);
+  }
+
+  function getRelevantRoutes(): RouteType[] {
+    let componentsToRender: RouteType[] = [];
+    if (!currentList.userData.userName){
+      componentsToRender = routes.filter(r => !r.authenticated);
+    } else {
+      if (currentList.userData.isAdmin) {
+        componentsToRender = routes.filter(r => !!r.authenticated);
+      } else {
+        componentsToRender = routes.filter(r => !!r.authenticated && !r.adminOnly);
+      }
+    }
+    return componentsToRender;
   }
 
   return <CoursesContext.Provider value={currentList}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <NavigatorResponsive items={routes} />
+        <NavigatorResponsive items={getRelevantRoutes()} />
         <Routes>
           {getRoutes()}
-          <Route path='/' element={<Navigate to={PATH_COURSES} />} />
+          <Route path='/' element={<Navigate 
+            to={!!currentList.userData.userName ? PATH_COURSES : PATH_LOGIN} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

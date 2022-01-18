@@ -34,5 +34,7 @@
         "Evening"
     ],
     "pollerInterval": 3000,
-    "serverURL": "http://localhost:3500/courses"
+    "serverURL": "http://localhost:3500/courses",
+    "authServerUrl": "http://localhost:3500",
+    "passwordLength": 8
 }

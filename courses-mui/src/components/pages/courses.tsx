@@ -10,7 +10,10 @@ const Courses: FC = () => {
         <List>{context.list.map(c =>
             <Box key={c.id}>
                 <ListItemText sx={{ display: "inline-flex", flexDirection: "row" }}>{c.name + " | " + c.cost + " | " + c.lecturer}</ListItemText>
-                <Button variant="text" onClick={() => context.remove!(c.id)}><ClearIcon/></Button>
+                <Button variant="text" onClick={() => context.remove!(c.id)} 
+                    disabled={!context.userData.isAdmin}>
+                    <ClearIcon/>
+                </Button>
             </Box>
         )}
         </List>
