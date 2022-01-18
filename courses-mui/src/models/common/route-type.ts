@@ -3,5 +3,7 @@ import { ReactNode } from "react";
 export type RouteType = {
     path: string,
     element: ReactNode,
-    label: string
+    label: string,
+    authenticated?: boolean;
+    adminOnly?: boolean;
 }

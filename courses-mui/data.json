@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "email": "admin@tel-ran.co.il",
+      "password": "$2a$10$0d.gqun7BTHuD1lNHDNWAujVXkHwcpZIXGiXb8oJvA/JbJjfKcrpm",
+      "id": 1
+    },
+    {
+      "email": "user@tel-ran.co.il",
+      "password": "$2a$10$rSdI0lSvHmwhzOxLQ1olOujYO4gIGgRhst03Si3vKxtpASI/4W3Ni",
+      "id": 2
+    }
+  ],
+  "courses": [
+    {
+      "id": 744863,
+      "name": "React",
+      "lecturer": "Moses",
+      "hoursNum": 123,
+      "cost": 16425,
+      "type": "Programming",
+      "startAt": "2015-11-02T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "userId": 1
+    },
+    {
+      "id": 424254,
+      "name": "QA Manual",
+      "lecturer": "Yosef",
+      "hoursNum": 450,
+      "cost": 10489,
+      "type": "QA",
+      "startAt": "2015-06-01T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "userId": 1
+    },
+    {
+      "id": 602425,
+      "name": "QA Automation",
+      "lecturer": "Yackob",
+      "hoursNum": 237,
+      "cost": 6676,
+      "type": "QA",
+      "startAt": "2020-04-04T21:00:00.000Z",
+      "dayEvening": [
+        "Day",
+        "Evening"
+      ],
+      "userId": 1
+    },
+    {
+      "id": 850810,
+      "name": "JS",
+      "lecturer": "Naftali",
+      "hoursNum": 231,
+      "cost": 5402,
+      "type": "QA",
+      "startAt": "2016-05-08T21:00:00.000Z",
+      "dayEvening": [
+        "Day",
+        "Evening"
+      ],
+      "userId": 1
+    }
+  ]
+}

@@ -1,8 +1,23 @@
-import { Typography } from "@mui/material";
-import React, { FC } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { FC, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { PATH_LOGIN } from "../../config/routes-config";
+import { authService } from "../../config/service-config";
 
 const Logout: FC = () => {
-    return <Typography>Logout</Typography>
+
+    const [flagNavigate, setFlagNavigate] = useState<boolean>(false);
+
+    async function logout() {
+        const res = await authService.logout();
+        setFlagNavigate(res);
+    }
+
+    return <Box marginX='1em'>
+        <Typography variant="h2">Sign Out</Typography>
+        <Button variant="outlined" onClick={logout}>Logout</Button>
+        { flagNavigate && <Navigate to={PATH_LOGIN} />}
+    </Box>
 }
 
 export default Logout;
