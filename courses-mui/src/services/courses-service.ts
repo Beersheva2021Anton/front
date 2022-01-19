@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import CourseType from "../models/course-type";
 
 interface CoursesService {
@@ -6,6 +7,7 @@ interface CoursesService {
     exists(id: number): Promise<boolean>;
     get(id?: number): Promise<CourseType[]> | Promise<CourseType>;
     update(id: number, course: CourseType): Promise<CourseType>;
+    publish(): Observable<CourseType[]>;
 }
 
 export default CoursesService;

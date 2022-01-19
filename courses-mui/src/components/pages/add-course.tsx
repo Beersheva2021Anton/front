@@ -1,15 +1,17 @@
-import { Box, Button, List, ListItemText, Typography } from "@mui/material";
-import { FC, useContext } from "react";
-import CoursesContext from "../../store/context";
+import { Box } from "@mui/material";
+import { FC } from "react";
+import CourseType from "../../models/course-type";
+import AddCourseForm from "../add-course-form";
+import { college } from "../../config/service-config";
 
-const AddCourse: FC = () => {
-    const context = useContext(CoursesContext);
+const AddCourse: FC = () => {                                                         
+
+    function addCourseFn(course: CourseType): Promise<CourseType> {
+        return college.addCourse(course);
+    }
+
     return <Box marginX='1em'>
-        <Typography variant="h2">Add New Course</Typography>
-        <Button onClick={() => context.add!()} variant="outlined">Generate</Button>
-        <List>{context.list.map(c => 
-            <ListItemText key={c.id}>{c.name + " | " + c.cost + " | " + c.lecturer}</ListItemText>)}
-        </List>
+        <AddCourseForm addCourseFn={addCourseFn} />
     </Box>
 }
 

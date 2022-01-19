@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { FC, useState, useEffect } from 'react';
 import { LoginData } from '../../models/common/login-data';
 
@@ -9,8 +9,8 @@ type LoginFormProps = {
 
 const LoginForm: FC<LoginFormProps> = props => {
 
-    const emptyLoginData: LoginData = { email: '', password: ''};
-    const {loginFn, passwordValidationFn} = props;
+    const emptyLoginData: LoginData = { email: '', password: '' };
+    const { loginFn, passwordValidationFn } = props;
     const [loginData, setLoginData] = useState<LoginData>(emptyLoginData);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [flagSubmit, setFlagSubmit] = useState<boolean>(false);
@@ -29,23 +29,29 @@ const LoginForm: FC<LoginFormProps> = props => {
 
     function userNameHandler(event: any) {
         loginData.email = event.target.value;
-        setLoginData({...loginData});
+        setLoginData({ ...loginData });
     }
 
-    function passwordHandler(event:any) {
+    function passwordHandler(event: any) {
         const password = event.target.value;
         const message = passwordValidationFn(password);
         setErrorMessage(message);
         loginData.password = password;
-        setLoginData({...loginData});
+        setLoginData({ ...loginData });
     }
 
     return <form onSubmit={onSubmit} onReset={() => setLoginData(emptyLoginData)}>
-        <TextField placeholder='username/email' required onChange={userNameHandler} />
-        <TextField placeholder='password' type='password' error={!!errorMessage} 
-            helperText={errorMessage} required onChange={passwordHandler} />
-        <Button type='submit' disabled={!flagSubmit}>Log In</Button>
-        <Button type='reset'>Reset</Button>
+        <Box>
+            <TextField sx={{ mt: 1, mr: 1}} placeholder='username/email' required 
+                onChange={userNameHandler} />
+            <TextField sx={{ mt: 1, mr: 1}} placeholder='password' type='password' 
+                error={!!errorMessage} helperText={errorMessage} required 
+                onChange={passwordHandler} />
+        </Box>
+        <Box>
+            <Button sx={{ mt: 1, mr: 2}} type='submit' disabled={!flagSubmit}>Log In</Button>
+            <Button sx={{ mt: 1, mr: 2}} type='reset'>Reset</Button>
+        </Box>
     </form>
 }
 

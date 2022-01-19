@@ -5,8 +5,8 @@
     "maxCost": 20000,
     "minHours": 80,
     "maxHours": 800,
-    "minYear": 2015,
-    "maxYear": 2021,
+    "minYear": 2020,
+    "maxYear": 2022,
     "courseNames": [
         "Java Core",
         "JS",
@@ -32,9 +32,5 @@
     "timing": [
         "Day",
         "Evening"
-    ],
-    "pollerInterval": 3000,
-    "serverURL": "http://localhost:3500/courses",
-    "authServerUrl": "http://localhost:3500",
-    "passwordLength": 8
+    ]
 }

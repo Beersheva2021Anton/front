@@ -1,8 +1,10 @@
-import { Typography } from "@mui/material";
-import React, { FC } from "react";
+import { Box, Typography } from "@mui/material";
+import { FC } from "react";
 
 const StatisticsCost: FC = () => {
-    return <Typography>Cost Statistics</Typography>
+    return <Box marginX='1em'>
+    <Typography variant="h2">Cost Statistics</Typography>
+</Box>
 }
 
 export default StatisticsCost;

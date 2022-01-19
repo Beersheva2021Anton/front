@@ -1,8 +1,10 @@
-import { Typography } from "@mui/material";
-import React, { FC } from "react";
+import { Box, Typography } from "@mui/material";
+import { FC } from "react";
 
 const StatisticsHours: FC = () => {
-    return <Typography>Hours Statistics</Typography>
+    return <Box marginX='1em'>
+    <Typography variant="h2">Hours Statistics</Typography>
+</Box>
 }
 
 export default StatisticsHours;

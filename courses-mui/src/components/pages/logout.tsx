@@ -15,7 +15,7 @@ const Logout: FC = () => {
 
     return <Box marginX='1em'>
         <Typography variant="h2">Sign Out</Typography>
-        <Button variant="outlined" onClick={logout}>Logout</Button>
+        <Button sx={{ mt: 2 }} variant="outlined" onClick={logout}>Confirm Logout</Button>
         { flagNavigate && <Navigate to={PATH_LOGIN} />}
     </Box>
 }

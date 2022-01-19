@@ -1,7 +1,9 @@
+import { Observable } from "rxjs";
 import CourseType from "../models/course-type";
 import CoursesService from "./courses-service";
 
 export const AUTH_TOKEN = "auth_token";
+const pollingInterval: number = 2000;
 
 function getHeaders(): { Authorization: string, "Content-Type": string } {
     return { Authorization: "Bearer " + localStorage.getItem(AUTH_TOKEN),
@@ -11,13 +13,13 @@ function getHeaders(): { Authorization: string, "Content-Type": string } {
 export default class CoursesServiceRest implements CoursesService {
 
     constructor(private url: string) {}
-
+    
     getUrlId(id: number): string {
         return `${this.url}/${id}`;
     }
 
     add(course: CourseType): Promise<CourseType> {
-        (course as any).userId = 1;
+        (course as any).userId = 1; // depends on json-server-auth
         try {
             return fetch(this.url, {
                 method: "POST",
@@ -80,5 +82,20 @@ export default class CoursesServiceRest implements CoursesService {
         } catch {
             throw new Error('Server is unavailable');
         }
-    }    
+    }
+    
+    publish(): Observable<CourseType[]> {
+        return new Observable<CourseType[]>(subscriber => {
+            const interval = setInterval(() => {
+                try {
+                    if (!!localStorage.getItem(AUTH_TOKEN)) {
+                        this.get().then(arr => subscriber.next(arr as CourseType[]));
+                    }
+                } catch(err) {
+                    subscriber.error(err);
+                }
+            }, pollingInterval);
+            return () => clearInterval(interval);
+        })
+    }
 }

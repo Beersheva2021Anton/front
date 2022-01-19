@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
-import { PATH_COURSES, PATH_LOGIN, routes } from './config/routes-config';
+import { routes } from './config/routes-config';
 import courseData from './config/course-data.json';
 import { getRandomElement, getRandomInteger, getRandomDate } from './utils/random';
 import CourseType from './models/course-type';
@@ -46,6 +46,7 @@ function getRandomCourse(): CourseType {
 const App: FC = () => {
 
   const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
+  const [relevantRoutes, setRelevantRoutes] = useState<RouteType[]>(getRelevantRoutes());
   currentList.add = addCourse;
   currentList.remove = removeCourse;
 
@@ -59,16 +60,17 @@ const App: FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setRelevantRoutes(getRelevantRoutes());
+  }, [currentList.userData]);
+
   function getCoursesData(): Subscription {
-    return college.publishCourses(courseData.pollerInterval).subscribe({
+    return college.publishCourses().subscribe({
       next(courses: CourseType[]) {
         updateContext(courses);
       },
       error(err) {
         console.log(err);
-      },
-      complete() {
-        console.log('publishCourses done');
       }
     })
   }
@@ -123,11 +125,10 @@ const App: FC = () => {
   return <CoursesContext.Provider value={currentList}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <NavigatorResponsive items={getRelevantRoutes()} />
+        <NavigatorResponsive items={relevantRoutes} />
         <Routes>
           {getRoutes()}
-          <Route path='/' element={<Navigate 
-            to={!!currentList.userData.userName ? PATH_COURSES : PATH_LOGIN} />} />
+          <Route path='*' element={<Navigate to={relevantRoutes[0].path} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
