@@ -136,11 +136,9 @@ const AddCourseForm: FC<AddCourseProps> = props => {
     }
 
     return <form onSubmit={() => addCourse()} onReset={() => clearForm()}>
-
         <Typography variant="h2">Add New Course</Typography>
-
         <Box>
-            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 300 }}>
+            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 280 }}>
                 <InputLabel id="course-type-label">Course Type</InputLabel>
                 <Select
                     labelId="course-type-label"
@@ -153,7 +151,7 @@ const AddCourseForm: FC<AddCourseProps> = props => {
                         <MenuItem key={index} value={t}>{t}</MenuItem>)}
                 </Select>
             </FormControl>
-            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 300 }}>
+            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 280 }}>
                 <InputLabel id="course-name-label">Course Name</InputLabel>
                 <Select
                     labelId="course-name-label"
@@ -169,7 +167,7 @@ const AddCourseForm: FC<AddCourseProps> = props => {
         </Box>
 
         <Box>
-            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 300 }}>
+            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 280 }}>
                 <InputLabel id="lecturer-label">Lecturer</InputLabel>
                 <Select
                     labelId="lecturer-label"
@@ -182,13 +180,13 @@ const AddCourseForm: FC<AddCourseProps> = props => {
                         <MenuItem key={index} value={t}>{t}</MenuItem>)}
                 </Select>
             </FormControl>
-            <TextField sx={{ mb: 1, mr: 1, minWidth: 300 }} label='Hours Number'
+            <TextField sx={{ mb: 1, mr: 1, minWidth: 280 }} label='Hours Number'
                 type='number' error={!!hoursErr} helperText={hoursErr}
-                required onChange={hoursHandler} />
+                required autoComplete="off" onChange={hoursHandler} />
         </Box>
 
         <Box>
-            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 300 }}>
+            <FormControl required sx={{ mb: 1, mr: 1, minWidth: 280 }}>
                 <InputLabel id="timing-checkbox-label">Timing</InputLabel>
                 <Select
                     labelId="timing-checkbox-label"
@@ -208,30 +206,29 @@ const AddCourseForm: FC<AddCourseProps> = props => {
                     ))}
                 </Select>
             </FormControl>
-            <TextField id="date" label="Start Date" type="date" required 
+            <TextField id="date" label="Start Date" type="date" required
                 defaultValue={getCurrentDate()}
-                sx={{ mb: 1, mr: 1, minWidth: 300 }} error={!!yearErr} helperText={yearErr}
+                sx={{ mb: 1, mr: 1, minWidth: 280 }} error={!!yearErr} helperText={yearErr}
                 InputLabelProps={{
                     shrink: true,
                 }} onChange={startDateHandler} />
         </Box>
 
         <Box>
-            <TextField sx={{ mb: 1, mr: 1, minWidth: 300 }} label='Cost'
+            <TextField sx={{ mb: 1, mr: 1, minWidth: 280 }} label='Cost'
                 type='number' error={!!costErr} helperText={costErr}
-                required onChange={costHandler} />
+                required autoComplete="off" onChange={costHandler} />
         </Box>
 
         <Box>
-            <Button sx={{ mb: 1, mr: 1, width: 145 }} type="submit" variant="contained"
+            <Button sx={{ mb: 1, mr: 1, width: 135 }} type="submit" variant="contained"
                 disabled={!!hoursErr || !!costErr || !!yearErr}>
                 Submit
             </Button>
-            <Button sx={{ mb: 1, mr: 1, width: 145 }} type="reset" variant="outlined">
+            <Button sx={{ mb: 1, mr: 1, width: 135 }} type="reset" variant="outlined">
                 Reset
             </Button>
         </Box>
-
     </form>
 }
 

@@ -144,6 +144,45 @@
       "startAt": "2022-08-01T00:00:00.000Z",
       "id": 592417,
       "userId": 1
+    },
+    {
+      "name": "CSS",
+      "lecturer": "Naftali",
+      "hoursNum": 120,
+      "cost": 5000,
+      "type": "Programming",
+      "dayEvening": [
+        "Evening"
+      ],
+      "startAt": "2020-01-20T00:00:00.000Z",
+      "id": 849158,
+      "userId": 1
+    },
+    {
+      "name": "React",
+      "lecturer": "Yackob",
+      "hoursNum": 350,
+      "cost": 11000,
+      "type": "Programming",
+      "dayEvening": [
+        "Day"
+      ],
+      "startAt": "2022-03-07T00:00:00.000Z",
+      "id": 365575,
+      "userId": 1
+    },
+    {
+      "name": "Java Core",
+      "lecturer": "Yosef",
+      "hoursNum": 380,
+      "cost": 5700,
+      "type": "Programming",
+      "dayEvening": [
+        "Evening"
+      ],
+      "startAt": "2020-04-04T00:00:00.000Z",
+      "id": 325417,
+      "userId": 1
     }
   ]
 }

@@ -3,6 +3,8 @@ import CoursesService from "./courses-service";
 import { Observable } from "rxjs";
 import courseData from "../config/course-data.json";
 import { getRandomInteger } from "../utils/random";
+import IntervalType from "../models/interval-type";
+import _, { Dictionary } from "lodash";
 
 export default class College {
 
@@ -61,40 +63,31 @@ export default class College {
     publishCourses(): Observable<CourseType[]> {
         return this.coursesService.publish();
     }
-}
 
-// function validateCourse(course: CourseType): string {
-//     let res: string[] = [];
-//     if (course.id < courseData.minId || course.id > courseData.maxId) {
-//         res.push(`Incorrect id: ${course.id}`);
-//     }
-//     if (courseData.courseNames.indexOf(course.name) === -1) {
-//         res.push(`Incorrect name: ${course.name}`);
-//     }
-//     if (course.hoursNum < courseData.minHours || course.hoursNum > courseData.maxHours) {
-//         res.push(`Incorrect hours number: ${course.hoursNum}`);
-//     }
-//     if (course.cost < courseData.minCost || course.cost > courseData.maxCost) {
-//         res.push(`Incorrect cost: ${course.cost}`);
-//     }
-//     if (courseData.lecturers.indexOf(course.lecturer) === -1) {
-//         res.push(`Incorrect lecturer: ${course.lecturer}`);
-//     }
-//     if (courseData.types.indexOf(course.type) === -1) {
-//         res.push(`Incorrect type: ${course.type}`);
-//     }
-//     const year = course.startAt.getFullYear();
-//     if (year < courseData.minYear || year > courseData.maxYear) {
-//         res.push(`Incorrect year in date: ${year}`);
-//     }
-//     if (course.dayEvening.length === 0 ||
-//         course.dayEvening.length > courseData.timing.length) {
-//         res.push(`Incorrect set: [${course.dayEvening.join(', ')}]`);
-//     }
-//     course.dayEvening.forEach(t => {
-//         if (!courseData.timing.includes(t)) {
-//             res.push(`Incorrect value of timing: ${t}`);
-//         }
-//     })
-//     return res.join('\r\n');
-// }
+    async getStatisticsByHours(interval: number): Promise<IntervalType[]> {
+        const courses = await this.getAllCourses();
+        const dictCount = _.countBy(courses, c => {
+            return Math.floor(c.hoursNum/interval) * interval;
+        })
+        return this.getInterval(dictCount, interval);
+    }
+
+    async getStatisticsByCost(interval: number): Promise<IntervalType[]> {
+        const courses = await this.getAllCourses();
+        const dictCount = _.countBy(courses, c => {
+            return Math.floor(c.cost/interval) * interval;
+        })
+        return this.getInterval(dictCount, interval);
+    }
+
+    private getInterval(dict: Dictionary<number>, interval: number): IntervalType[] {
+        let res: IntervalType[] = [];
+        for (let key in dict) {
+            const min = +key;
+            const max = +key + interval - 1;
+            const count = dict[key];
+            res.push({ min: min, max: max, count: count});
+        }
+        return res;
+    }
+}

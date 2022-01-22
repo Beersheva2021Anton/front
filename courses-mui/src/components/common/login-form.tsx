@@ -1,6 +1,7 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Avatar, Box, Button, Container, createTheme, CssBaseline, TextField, ThemeProvider, Typography } from '@mui/material';
 import { FC, useState, useEffect } from 'react';
 import { LoginData } from '../../models/common/login-data';
+import LoginIcon from '@mui/icons-material/Login';
 
 type LoginFormProps = {
     loginFn: (loginData: LoginData) => Promise<boolean>;
@@ -9,6 +10,7 @@ type LoginFormProps = {
 
 const LoginForm: FC<LoginFormProps> = props => {
 
+    const theme = createTheme();
     const emptyLoginData: LoginData = { email: '', password: '' };
     const { loginFn, passwordValidationFn } = props;
     const [loginData, setLoginData] = useState<LoginData>(emptyLoginData);
@@ -40,19 +42,58 @@ const LoginForm: FC<LoginFormProps> = props => {
         setLoginData({ ...loginData });
     }
 
-    return <form onSubmit={onSubmit} onReset={() => setLoginData(emptyLoginData)}>
-        <Box>
-            <TextField sx={{ mt: 1, mr: 1}} placeholder='username/email' required 
-                onChange={userNameHandler} />
-            <TextField sx={{ mt: 1, mr: 1}} placeholder='password' type='password' 
-                error={!!errorMessage} helperText={errorMessage} required 
-                onChange={passwordHandler} />
+    return <ThemeProvider theme={theme}>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LoginIcon />
+        </Avatar>
+        <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            onChange={userNameHandler}
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={passwordHandler}
+            error={!!errorMessage} 
+            helperText={errorMessage}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={!flagSubmit}
+          >
+            Sign In
+          </Button>
         </Box>
-        <Box>
-            <Button sx={{ mt: 1, mr: 2}} type='submit' disabled={!flagSubmit}>Log In</Button>
-            <Button sx={{ mt: 1, mr: 2}} type='reset'>Reset</Button>
-        </Box>
-    </form>
+      </Box>
+    </Container>
+  </ThemeProvider>
 }
 
 export default LoginForm;
