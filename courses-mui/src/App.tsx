@@ -2,9 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
-import { routes } from './config/routes-config';
-import courseData from './config/course-data.json';
-import { getRandomElement, getRandomInteger, getRandomDate } from './utils/random';
+import { devRoutes, routes } from './config/routes-config';
 import CourseType from './models/course-type';
 import CoursesStore from './models/courses-store';
 import CoursesContext, { defaultCourses } from './store/context';
@@ -25,32 +23,19 @@ const theme = createTheme();
 //   },
 // };
 
-function getRandomCourse(): CourseType {
-  let id = getRandomInteger(courseData.minId, courseData.maxId);
-  let courseName = getRandomElement(courseData.courseNames);
-  let lecturerName = getRandomElement(courseData.lecturers);
-  let hours = getRandomInteger(courseData.minHours, courseData.maxHours);
-  let cost = getRandomInteger(courseData.minCost, courseData.maxCost);
-  let type = getRandomElement(courseData.types);
-  let timingInd = getRandomInteger(0, courseData.timing.length);
-  let timing = timingInd < courseData.timing.length ?
-    [courseData.timing[timingInd]] : courseData.timing;
-  let startDate = getRandomDate(courseData.minYear, courseData.maxYear);
 
-  return {
-    id: id, name: courseName, lecturer: lecturerName, hoursNum: hours, cost: cost,
-    type: type, startAt: startDate, dayEvening: timing
-  };
-}
 
 const App: FC = () => {
 
   const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
-  const [relevantRoutes, setRelevantRoutes] = useState<RouteType[]>(getRelevantRoutes());
-  currentList.add = addCourse;
+  const [relevantComponents, setRelevantComponents] = 
+    useState<RouteType[]>(getRelevantComponents());
   currentList.remove = removeCourse;
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      routes.splice(2, 0, devRoutes[0]);
+    }
     college.getAllCourses().then(arr => updateContext(arr));
     const coursesDataSubscr = getCoursesData();
     const userDataSubscr = getUserData();
@@ -61,7 +46,7 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    setRelevantRoutes(getRelevantRoutes());
+    setRelevantComponents(getRelevantComponents());
   }, [currentList.userData]);
 
   function getCoursesData(): Subscription {
@@ -92,24 +77,18 @@ const App: FC = () => {
     setCurrentList({ ...currentList });
   }
 
-  async function addCourse() {
-    let course = getRandomCourse();
-    await college.addCourse(course);
-    college.getAllCourses().then(arr => updateContext(arr));
-  }
-
   async function removeCourse(id: number) {
     await college.removeCourse(id);
     college.getAllCourses().then(arr => updateContext(arr));
   }
 
   function getRoutes(): ReactNode[] {
-    return getRelevantRoutes().map(r => 
+    return getRelevantComponents().map(r => 
       <Route key={r.path} path={r.path} element={r.element} />);
-  }
+    }
 
-  function getRelevantRoutes(): RouteType[] {
-    let componentsToRender: RouteType[] = [];
+  function getRelevantComponents(): RouteType[] {
+    let componentsToRender: RouteType[] = [];    
     if (!currentList.userData.userName){
       componentsToRender = routes.filter(r => !r.authenticated);
     } else {
@@ -125,10 +104,10 @@ const App: FC = () => {
   return <CoursesContext.Provider value={currentList}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <NavigatorResponsive items={relevantRoutes} />
+        <NavigatorResponsive items={relevantComponents} />
         <Routes>
           {getRoutes()}
-          <Route path='*' element={<Navigate to={relevantRoutes[0].path} />} />
+          <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

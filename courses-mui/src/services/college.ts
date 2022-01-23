@@ -12,11 +12,7 @@ export default class College {
 
     async addCourse(course: CourseType): Promise<CourseType> {
         course.id = await this.generateUniqueId();
-        return this.coursesService.add(course)
-            .then(c => {
-                this.getAllCourses();
-                return c;
-        });
+        return this.coursesService.add(course);
     }
 
     private async generateUniqueId(): Promise<number> {
