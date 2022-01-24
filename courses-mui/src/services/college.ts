@@ -1,6 +1,7 @@
 import CourseType from "../models/course-type";
 import CoursesService from "./courses-service";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import courseData from "../config/course-data.json";
 import { getRandomInteger } from "../utils/random";
 import IntervalType from "../models/interval-type";
@@ -57,7 +58,9 @@ export default class College {
     }
 
     publishCourses(): Observable<CourseType[]> {
-        return this.coursesService.publish();
+        return (this.coursesService.publish())
+            .pipe(map(courses => courses.map(course => 
+                ({...course, startAt: new Date(course.startAt)}))));
     }
 
     async getStatisticsByHours(interval: number): Promise<IntervalType[]> {

@@ -54,19 +54,6 @@
       "userId": 1
     },
     {
-      "name": "Java Core",
-      "lecturer": "Yackob",
-      "hoursNum": 582,
-      "cost": 6704,
-      "type": "Programming",
-      "startAt": "2022-04-08T21:00:00.000Z",
-      "dayEvening": [
-        "Evening"
-      ],
-      "id": 861417,
-      "userId": 1
-    },
-    {
       "name": "QA Automation",
       "lecturer": "Yosef",
       "hoursNum": 669,
@@ -77,19 +64,6 @@
         "Evening"
       ],
       "id": 401214,
-      "userId": 1
-    },
-    {
-      "name": "CSS",
-      "lecturer": "Naftali",
-      "hoursNum": 796,
-      "cost": 10427,
-      "type": "QA",
-      "startAt": "2020-02-14T22:00:00.000Z",
-      "dayEvening": [
-        "Day"
-      ],
-      "id": 608251,
       "userId": 1
     },
     {
