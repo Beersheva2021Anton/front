@@ -13,7 +13,7 @@ const Confirmation: FC<ConfirmationProps> = (props) => {
 
     return <Dialog
         open={isVisible}
-        onClose={onClose}
+        onClose={() => onClose(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
     >

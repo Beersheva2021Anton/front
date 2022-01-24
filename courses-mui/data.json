@@ -13,20 +13,6 @@
   ],
   "courses": [
     {
-      "name": "React",
-      "lecturer": "Yackob",
-      "hoursNum": 275,
-      "cost": 19324,
-      "type": "QA",
-      "startAt": "2021-06-16T21:00:00.000Z",
-      "dayEvening": [
-        "Day",
-        "Evening"
-      ],
-      "id": 896179,
-      "userId": 1
-    },
-    {
       "name": "Java Core",
       "lecturer": "Moses",
       "hoursNum": 772,
@@ -37,19 +23,6 @@
         "Day"
       ],
       "id": 964509,
-      "userId": 1
-    },
-    {
-      "name": "QA Manual",
-      "lecturer": "Yosef",
-      "hoursNum": 570,
-      "cost": 15938,
-      "type": "QA",
-      "startAt": "2020-02-02T22:00:00.000Z",
-      "dayEvening": [
-        "Evening"
-      ],
-      "id": 555717,
       "userId": 1
     },
     {
