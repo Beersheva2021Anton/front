@@ -35,8 +35,8 @@ const CourseInfo: FC<CourseInfoProps> = (props) => {
         </DialogTitle>
         <DialogContent>
             <List>
-                {isVisible && Object.entries(data).map((key, value) => 
-                <ListItem>{key}: {value}</ListItem>)}
+                { isVisible && Object.keys(data).map(key => 
+                    <ListItem>{`${key}: ${(data as any)[key]}`}</ListItem>) }
             </List>
         </DialogContent>
         <DialogActions>
