@@ -7,6 +7,7 @@ import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { college } from "../../config/service-config";
 import RemoveConfirmation from "../remove-confirmation";
+import ActionConfirmation from "../remove-confirmation";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
@@ -37,8 +38,7 @@ const Courses: FC = () => {
             {
                 field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
                     <GridActionsCellItem icon={<DeleteOutlineIcon />} label='Remove'
-                        onClick={() => showRemoveConfirmation(params.id as number)}
-                        disabled={!userData.isAdmin} />
+                        onClick={() => showRemoveConfirmation(params.id as number)} />
                 ]
             }
         ]
@@ -57,12 +57,10 @@ const Courses: FC = () => {
         setConfirmOpen(true);
     }
 
-    function handleRemove(): void {
-        setConfirmOpen(false);
-        college.removeCourse(removeID);
-    }
-
-    function handleClose(): void {
+    function handleRemove(status: boolean): void {
+        if (status) {
+            college.removeCourse(removeID);
+        }
         setConfirmOpen(false);
     }
 
@@ -71,8 +69,9 @@ const Courses: FC = () => {
         <Paper sx={{ width: '80vw', height: '80vh' }}>
             <DataGrid rows={rows} columns={columns} />
         </Paper>
-        <RemoveConfirmation isVisible={confirmOpen} itemId={removeID} onClose={handleClose} 
-            onRemove={handleRemove} />
+        <ActionConfirmation isVisible={confirmOpen} title="Course Remove" 
+            message={`Are you sure you want to remove course with ID ${removeID}`} 
+            onClose={handleRemove} />
     </Box>
 }
 

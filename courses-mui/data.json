@@ -13,33 +13,6 @@
   ],
   "courses": [
     {
-      "name": "CSS",
-      "lecturer": "Abraham",
-      "hoursNum": 179,
-      "cost": 7085,
-      "type": "QA",
-      "startAt": "2022-11-11T22:00:00.000Z",
-      "dayEvening": [
-        "Day"
-      ],
-      "id": 610676,
-      "userId": 1
-    },
-    {
-      "name": "QA Automation",
-      "lecturer": "Yackob",
-      "hoursNum": 794,
-      "cost": 5238,
-      "type": "QA",
-      "startAt": "2022-05-04T21:00:00.000Z",
-      "dayEvening": [
-        "Day",
-        "Evening"
-      ],
-      "id": 421386,
-      "userId": 1
-    },
-    {
       "name": "React",
       "lecturer": "Yackob",
       "hoursNum": 275,
@@ -54,19 +27,6 @@
       "userId": 1
     },
     {
-      "name": "QA Automation",
-      "lecturer": "Yosef",
-      "hoursNum": 669,
-      "cost": 18175,
-      "type": "QA",
-      "startAt": "2021-02-25T22:00:00.000Z",
-      "dayEvening": [
-        "Evening"
-      ],
-      "id": 401214,
-      "userId": 1
-    },
-    {
       "name": "Java Core",
       "lecturer": "Moses",
       "hoursNum": 772,
@@ -77,6 +37,45 @@
         "Day"
       ],
       "id": 964509,
+      "userId": 1
+    },
+    {
+      "name": "QA Manual",
+      "lecturer": "Yosef",
+      "hoursNum": 570,
+      "cost": 15938,
+      "type": "QA",
+      "startAt": "2020-02-02T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 555717,
+      "userId": 1
+    },
+    {
+      "name": "JS",
+      "lecturer": "Yackob",
+      "hoursNum": 364,
+      "cost": 19919,
+      "type": "Programming",
+      "startAt": "2022-04-17T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 327960,
+      "userId": 1
+    },
+    {
+      "name": "Java Technologies",
+      "lecturer": "Yackob",
+      "hoursNum": 230,
+      "cost": 16392,
+      "type": "QA",
+      "startAt": "2021-10-02T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ],
+      "id": 858149,
       "userId": 1
     }
   ]
