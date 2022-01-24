@@ -7,7 +7,7 @@ import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { college } from "../../config/service-config";
 
-const Courses: FC = () => {    
+const Courses: FC = () => {
     const context = useContext(CoursesContext);
 
     const [columns, setColumns] = useState(getColumns(context.userData));
@@ -24,28 +24,35 @@ const Courses: FC = () => {
         let res = [
             { field: 'name', headerName: 'Course Name', flex: 100 },
             { field: 'lecturer', headerName: 'Lecturer', editable: userData.isAdmin, flex: 100 },
-            { field: 'hoursNum', headerName: 'Duration (hours)', type: 'number', flex: 100,
-                align: 'center', headerAlign: 'center' },
+            {
+                field: 'hoursNum', headerName: 'Duration (hours)', type: 'number', flex: 100,
+                align: 'center', headerAlign: 'center'
+            },
             { field: 'cost', headerName: 'Cost ($)', type: 'number', editable: userData.isAdmin },
-            { field: 'startAt', headerName: 'Start Date', type: 'date', editable: userData.isAdmin, 
-                flex: 200, align: 'center', headerAlign: 'center' },
-            { field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
-                <GridActionsCellItem icon={<DeleteOutlineIcon/>} label='Remove'
-                    onClick={() => showRemoveConfirmation(params.id as number)} />
-            ] }
+            {
+                field: 'startAt', headerName: 'Start Date', type: 'date', editable: userData.isAdmin,
+                flex: 200, align: 'center', headerAlign: 'center'
+            },
+            {
+                field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
+                    <GridActionsCellItem icon={<DeleteOutlineIcon />} label='Remove'
+                        onClick={() => showRemoveConfirmation(params.id as number)}
+                        disabled={!userData.isAdmin} />
+                ]
+            }
         ]
         return res;
     }
-    
+
     function getRows(courses: CourseType[]): GridRowsProp {
         return courses.map(course => course);
     }
-    
+
     function showRemoveConfirmation(id: number): void {
         setRemoveID(id);
         setConfirmOpen(true);
     }
-    
+
     function handleRemove(): void {
         setConfirmOpen(false);
         college.removeCourse(removeID);
@@ -60,26 +67,26 @@ const Courses: FC = () => {
             <DataGrid rows={rows} columns={columns} />
         </Paper>
         <Dialog
-        open={confirmOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Course Remove"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to remove course with ID '{removeID}'?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleRemove} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+            open={confirmOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                {"Course Remove"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Are you sure you want to remove course with ID '{removeID}'?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleRemove} autoFocus>
+                    OK
+                </Button>
+            </DialogActions>
+        </Dialog>
     </Box>
 }
 
