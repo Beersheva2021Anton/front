@@ -42,6 +42,9 @@ const Courses: FC = () => {
                 ]
             }
         ]
+        if (!userData.isAdmin) {
+            res.pop();
+        }
         return res;
     }
 
@@ -65,7 +68,7 @@ const Courses: FC = () => {
 
     return <Box marginX='1em'>
         <Typography variant="h2">Courses</Typography>
-        <Paper sx={{ width: '80vw', height: '90vh' }}>
+        <Paper sx={{ width: '80vw', height: '80vh' }}>
             <DataGrid rows={rows} columns={columns} />
         </Paper>
         <RemoveConfirmation isVisible={confirmOpen} itemId={removeID} onClose={handleClose} 
