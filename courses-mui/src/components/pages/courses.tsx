@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import CoursesContext from "../../store/context";
 import { UserData } from "../../models/common/user-data";
@@ -6,6 +6,7 @@ import { DataGrid, GridActionsCellItem, GridRowParams, GridRowsProp } from "@mui
 import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { college } from "../../config/service-config";
+import RemoveConfirmation from "../remove-confirmation";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
@@ -63,30 +64,12 @@ const Courses: FC = () => {
     }
 
     return <Box marginX='1em'>
+        <Typography variant="h2">Courses</Typography>
         <Paper sx={{ width: '80vw', height: '90vh' }}>
             <DataGrid rows={rows} columns={columns} />
         </Paper>
-        <Dialog
-            open={confirmOpen}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
-                {"Course Remove"}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Are you sure you want to remove course with ID '{removeID}'?
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleRemove} autoFocus>
-                    OK
-                </Button>
-            </DialogActions>
-        </Dialog>
+        <RemoveConfirmation isVisible={confirmOpen} itemId={removeID} onClose={handleClose} 
+            onRemove={handleRemove} />
     </Box>
 }
 
