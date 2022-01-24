@@ -6,8 +6,7 @@ import { DataGrid, GridActionsCellItem, GridRowParams, GridRowsProp } from "@mui
 import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { college } from "../../config/service-config";
-import RemoveConfirmation from "../remove-confirmation";
-import ActionConfirmation from "../remove-confirmation";
+import ActionConfirmation from "../action-confirmation";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
@@ -70,7 +69,7 @@ const Courses: FC = () => {
             <DataGrid rows={rows} columns={columns} />
         </Paper>
         <ActionConfirmation isVisible={confirmOpen} title="Course Remove" 
-            message={`Are you sure you want to remove course with ID ${removeID}`} 
+            message={`Are you sure you want to remove course with ID '${removeID}'?`} 
             onClose={handleRemove} />
     </Box>
 }
