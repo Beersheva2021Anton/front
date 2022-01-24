@@ -7,8 +7,8 @@ import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import InfoIcon from '@mui/icons-material/Info';
 import { college } from "../../config/service-config";
-import ActionConfirmation from "../common/action-confirmation";
-import CourseInfo from "../course-info";
+import Confirmation from "../common/confirmation";
+import DialogInfo from "../common/dialog-info";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
@@ -89,10 +89,11 @@ const Courses: FC = () => {
         <Paper sx={{ width: '80vw', height: '80vh' }}>
             <DataGrid rows={rows} columns={columns} />
         </Paper>
-        <ActionConfirmation isVisible={confirmOpen} title="Course Remove" 
+        <Confirmation isVisible={confirmOpen} title="Course Remove" 
             message={`Are you sure you want to remove course with ID '${currentID}'?`} 
             onClose={handleRemove} />
-        <CourseInfo isVisible={infoOpen} onClose={handleInfo} data={courseInfo!} />
+        <DialogInfo isVisible={infoOpen} onClose={handleInfo} data={courseInfo!}
+            properties={["id", "name", "type", "lecturer", "hoursNum", "cost", "dayEvening", "startAt"]} />
     </Box>
 }
 

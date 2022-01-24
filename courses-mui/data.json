@@ -77,6 +77,111 @@
       ],
       "id": 858149,
       "userId": 1
+    },
+    {
+      "name": "QA Automation",
+      "lecturer": "Asher",
+      "hoursNum": 626,
+      "cost": 8877,
+      "type": "QA",
+      "startAt": "2021-02-15T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 933969,
+      "userId": 1
+    },
+    {
+      "name": "JS",
+      "lecturer": "Yackob",
+      "hoursNum": 336,
+      "cost": 19553,
+      "type": "Programming",
+      "startAt": "2021-10-03T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ],
+      "id": 352511,
+      "userId": 1
+    },
+    {
+      "name": "QA Manual",
+      "lecturer": "Moses",
+      "hoursNum": 518,
+      "cost": 10807,
+      "type": "QA",
+      "startAt": "2022-09-09T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ],
+      "id": 457116,
+      "userId": 1
+    },
+    {
+      "name": "Java Technologies",
+      "lecturer": "Asher",
+      "hoursNum": 284,
+      "cost": 5854,
+      "type": "QA",
+      "startAt": "2022-06-02T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 681988,
+      "userId": 1
+    },
+    {
+      "name": "QA Automation",
+      "lecturer": "Moses",
+      "hoursNum": 330,
+      "cost": 8037,
+      "type": "QA",
+      "startAt": "2021-10-26T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 982148,
+      "userId": 1
+    },
+    {
+      "name": "JS",
+      "lecturer": "Yackob",
+      "hoursNum": 624,
+      "cost": 13885,
+      "type": "QA",
+      "startAt": "2022-05-03T21:00:00.000Z",
+      "dayEvening": [
+        "Day"
+      ],
+      "id": 654108,
+      "userId": 1
+    },
+    {
+      "name": "HTML",
+      "lecturer": "Asher",
+      "hoursNum": 252,
+      "cost": 12709,
+      "type": "QA",
+      "startAt": "2022-06-21T21:00:00.000Z",
+      "dayEvening": [
+        "Day",
+        "Evening"
+      ],
+      "id": 949008,
+      "userId": 1
+    },
+    {
+      "name": "Java Technologies",
+      "lecturer": "Yosef",
+      "hoursNum": 112,
+      "cost": 15388,
+      "type": "QA",
+      "startAt": "2022-12-03T22:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 383551,
+      "userId": 1
     }
   ]
 }

@@ -1,14 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { FC } from "react";
 
-type RemoveProps = {
+type ConfirmationProps = {
     isVisible: boolean,
     title: string,
     message: string,
     onClose: (status: boolean) => void
 }
 
-const ActionConfirmation: FC<RemoveProps> = (props) => {
+const Confirmation: FC<ConfirmationProps> = (props) => {
     const { isVisible, title, message, onClose } = { ...props };
 
     return <Dialog
@@ -34,4 +34,4 @@ const ActionConfirmation: FC<RemoveProps> = (props) => {
     </Dialog>
 }
 
-export default ActionConfirmation;
+export default Confirmation;
