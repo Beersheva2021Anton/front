@@ -9,20 +9,41 @@ import InfoIcon from '@mui/icons-material/Info';
 import { college } from "../../config/service-config";
 import Confirmation from "../common/confirmation";
 import DialogInfo from "../common/dialog-info";
+import { useMediaQuery } from "react-responsive";
+import mediaConfig from "../../config/media-config.json";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
 
-    const [columns, setColumns] = useState(getColumns(context.userData));
+    const [columns, setColumns] = useState<any[]>(getColumns(context.userData));
     const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
     const [infoOpen, setInfoOpen] = useState<boolean>(false);
     const [courseInfo, setCourseInfo] = useState<CourseType>();
     const [currentID, setCurrentID] = useState<number>(0);
     const rows = useMemo(() => getRows(context.list), [context.list]);
 
+    const mobilePortrait = useMediaQuery({ maxWidth: 600, orientation: 'portrait'}, undefined, 
+        () => filterCurrentColumns());
+    const mobileOrTablet = useMediaQuery({ maxWidth: 900 }, undefined, () => filterCurrentColumns());
+
     useEffect(() => {
-        setColumns(getColumns(context.userData));
+        filterCurrentColumns();
     }, [context.userData]);
+
+    function filterCurrentColumns() {
+        let columnsMedia: any[] = [];
+        if (mobilePortrait) {
+            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' || 
+                mediaConfig.small.indexOf(column.field) >= 0);
+        } else if (mobileOrTablet) {
+            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' || 
+                mediaConfig.medium.indexOf(column.field) >= 0);
+        } else {
+            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' || 
+                mediaConfig.large.indexOf(column.field) >= 0);
+        }
+        setColumns(columnsMedia);
+    }
 
     function getRelevantActions(isAdmin: boolean, itemId: number): ReactElement[] {
         let res: ReactElement[] = [
