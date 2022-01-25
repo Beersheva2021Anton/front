@@ -6,7 +6,7 @@ import { PATH_COURSES } from "../config/routes-config";
 import CourseType from "../models/course-type";
 
 type AddCourseProps = {
-    addCourseFn: (course: CourseType) => Promise<CourseType>;
+    addCourseFn: (course: CourseType) => void;
 }
 
 const AddCourseForm: FC<AddCourseProps> = props => {

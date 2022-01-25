@@ -26,19 +26,6 @@
       "userId": 1
     },
     {
-      "name": "JS",
-      "lecturer": "Yackob",
-      "hoursNum": 364,
-      "cost": 19919,
-      "type": "Programming",
-      "startAt": "2022-04-17T21:00:00.000Z",
-      "dayEvening": [
-        "Evening"
-      ],
-      "id": 327960,
-      "userId": 1
-    },
-    {
       "name": "Java Technologies",
       "lecturer": "Yackob",
       "hoursNum": 230,
@@ -62,19 +49,6 @@
         "Evening"
       ],
       "id": 933969,
-      "userId": 1
-    },
-    {
-      "name": "JS",
-      "lecturer": "Yackob",
-      "hoursNum": 336,
-      "cost": 19553,
-      "type": "Programming",
-      "startAt": "2021-10-03T21:00:00.000Z",
-      "dayEvening": [
-        "Day"
-      ],
-      "id": 352511,
       "userId": 1
     },
     {
@@ -552,6 +526,33 @@
         "Evening"
       ],
       "id": 631086,
+      "userId": 1
+    },
+    {
+      "name": "Java Core",
+      "lecturer": "Yosef",
+      "hoursNum": 770,
+      "cost": 18700,
+      "type": "Programming",
+      "dayEvening": [
+        "Evening",
+        "Day"
+      ],
+      "startAt": "2022-04-01T00:00:00.000Z",
+      "id": 800183,
+      "userId": 1
+    },
+    {
+      "name": "Java Technologies",
+      "lecturer": "Asher",
+      "hoursNum": 424,
+      "cost": 6106,
+      "type": "Programming",
+      "startAt": "2022-10-14T21:00:00.000Z",
+      "dayEvening": [
+        "Evening"
+      ],
+      "id": 651424,
       "userId": 1
     }
   ]

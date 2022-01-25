@@ -2,11 +2,10 @@ import { Box, Paper, Typography } from "@mui/material";
 import { FC, ReactElement, useContext, useEffect, useMemo, useState } from "react";
 import CoursesContext from "../../store/context";
 import { UserData } from "../../models/common/user-data";
-import { DataGrid, GridActionsCellItem, GridRowParams, GridRowsProp } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridCellEditCommitParams, GridRowParams, GridRowsProp } from "@mui/x-data-grid";
 import CourseType from "../../models/course-type";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import InfoIcon from '@mui/icons-material/Info';
-import { college } from "../../config/service-config";
 import Confirmation from "../common/confirmation";
 import DialogInfo from "../common/dialog-info";
 import { useMediaQuery } from "react-responsive";
@@ -14,7 +13,6 @@ import mediaConfig from "../../config/media-config.json";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
-
     const [columns, setColumns] = useState<any[]>(getColumns(context.userData));
     const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
     const [infoOpen, setInfoOpen] = useState<boolean>(false);
@@ -83,9 +81,14 @@ const Courses: FC = () => {
         return courses.map(course => course);
     }
 
+    function onEdit(params: GridCellEditCommitParams): void {
+        console.log(params);
+        // TODO launch confirmation dialog and so on
+    }
+
     async function showDetails(id: number): Promise<void> {
-        setCurrentID(id);        
-        await college.getCourse(id).then(course => setCourseInfo(course));
+        setCurrentID(id);
+        setCourseInfo(await context.get!(id));
         setInfoOpen(true);
     }
 
@@ -96,24 +99,20 @@ const Courses: FC = () => {
 
     function handleRemove(status: boolean): void {
         if (status) {
-            college.removeCourse(currentID);
+            context.remove!(currentID);
         }
         setConfirmOpen(false);
-    }
-
-    function handleInfo(): void {
-        setInfoOpen(false);
     }
 
     return <Box marginX='1em'>
         <Typography variant="h2">Courses</Typography>
         <Paper sx={{ width: '80vw', height: '80vh' }}>
-            <DataGrid rows={rows} columns={columns} />
+            <DataGrid rows={rows} columns={columns} onCellEditCommit={onEdit} />
         </Paper>
         <Confirmation isVisible={confirmOpen} title="Course Remove" 
             message={`Are you sure you want to remove course with ID '${currentID}'?`} 
             onClose={handleRemove} />
-        <DialogInfo isVisible={infoOpen} onClose={handleInfo} data={courseInfo!}
+        <DialogInfo isVisible={infoOpen} onClose={() => setInfoOpen(false)} data={courseInfo!}
             properties={["id", "name", "type", "lecturer", "hoursNum", "cost", "dayEvening", "startAt"]} />
     </Box>
 }

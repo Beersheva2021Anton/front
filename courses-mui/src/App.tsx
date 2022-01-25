@@ -30,7 +30,6 @@ const App: FC = () => {
   const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
   const [relevantComponents, setRelevantComponents] = 
     useState<RouteType[]>(getRelevantComponents());
-  currentList.remove = removeCourse;
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
@@ -75,11 +74,6 @@ const App: FC = () => {
   function updateContext(courses: CourseType[]): void {
     currentList.list = courses;
     setCurrentList({ ...currentList });
-  }
-
-  async function removeCourse(id: number) {
-    await college.removeCourse(id);
-    college.getAllCourses().then(arr => updateContext(arr));
   }
 
   function getRoutes(): ReactNode[] {
