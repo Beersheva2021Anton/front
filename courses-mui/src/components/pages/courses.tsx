@@ -60,7 +60,7 @@ const Courses: FC = () => {
     function getColumns(userData: UserData): any[] {
 
         let res = [
-            { field: 'name', headerName: 'Course Name', flex: 100 },
+            { field: 'name', headerName: 'Course Name', flex: 250 },
             { field: 'lecturer', headerName: 'Lecturer', editable: userData.isAdmin, flex: 100 },
             {
                 field: 'hoursNum', headerName: 'Duration (hours)', type: 'number', flex: 100,
@@ -69,10 +69,10 @@ const Courses: FC = () => {
             { field: 'cost', headerName: 'Cost ($)', type: 'number', editable: userData.isAdmin },
             {
                 field: 'startAt', headerName: 'Start Date', type: 'date', editable: userData.isAdmin,
-                flex: 200, align: 'center', headerAlign: 'center'
+                flex: 150, align: 'center', headerAlign: 'center'
             },
             {
-                field: 'actions', type: 'actions', getActions: (params: GridRowParams) => 
+                field: 'actions', type: 'actions', flex: 50, getActions: (params: GridRowParams) => 
                     getRelevantActions(userData.isAdmin, params.id as number)
             }
         ]
