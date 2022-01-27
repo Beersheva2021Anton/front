@@ -54,9 +54,9 @@ const App: FC = () => {
         setShowAlertFl(false);
         updateContext(courses);
       },
-      error(err) {
-        setShowAlertFl(true);
+      error(err: Error) {
         console.log(err);
+        err.message !== 'NOT_AUTHORIZED' && setShowAlertFl(true);
         setTimeout(getCoursesData, 3000);
       }
     })
