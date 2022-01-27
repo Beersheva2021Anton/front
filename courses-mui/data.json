@@ -16,9 +16,9 @@
       "name": "Java Core",
       "lecturer": "Moses",
       "hoursNum": 772,
-      "cost": 13667,
+      "cost": 13600,
       "type": "Programming",
-      "startAt": "2021-04-22T21:00:00.000Z",
+      "startAt": "2021-04-23T21:00:00.000Z",
       "dayEvening": [
         "Day"
       ],
@@ -29,7 +29,7 @@
       "name": "Java Technologies",
       "lecturer": "Yackob",
       "hoursNum": 230,
-      "cost": 16392,
+      "cost": 16500,
       "type": "QA",
       "startAt": "2021-10-02T21:00:00.000Z",
       "dayEvening": [
@@ -42,7 +42,7 @@
       "name": "QA Automation",
       "lecturer": "Yosef",
       "hoursNum": 626,
-      "cost": 8877,
+      "cost": 8800,
       "type": "QA",
       "startAt": "2021-02-15T22:00:00.000Z",
       "dayEvening": [
@@ -53,9 +53,9 @@
     },
     {
       "name": "QA Manual",
-      "lecturer": "Moses",
+      "lecturer": "Asher",
       "hoursNum": 518,
-      "cost": 10807,
+      "cost": 10000,
       "type": "QA",
       "startAt": "2022-09-09T21:00:00.000Z",
       "dayEvening": [
@@ -66,11 +66,11 @@
     },
     {
       "name": "Java Technologies",
-      "lecturer": "Asher",
+      "lecturer": "Naftali",
       "hoursNum": 284,
       "cost": 5854,
       "type": "QA",
-      "startAt": "2022-06-02T21:00:00.000Z",
+      "startAt": "2022-06-03T21:00:00.000Z",
       "dayEvening": [
         "Evening"
       ],
@@ -79,11 +79,11 @@
     },
     {
       "name": "QA Automation",
-      "lecturer": "Moses",
+      "lecturer": "Yosef",
       "hoursNum": 330,
       "cost": 8037,
       "type": "QA",
-      "startAt": "2021-10-26T21:00:00.000Z",
+      "startAt": "2021-02-01T22:00:00.000Z",
       "dayEvening": [
         "Evening"
       ],

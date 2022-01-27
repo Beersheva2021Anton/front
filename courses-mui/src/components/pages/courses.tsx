@@ -115,16 +115,26 @@ const Courses: FC = () => {
 
     async function onEdit(params: GridCellEditCommitParams): Promise<void> {
         let course = await context.get!(params.id as number) as any;
-        course[params.field] = params.value;
-        setNewCourseInfo(course);
-        showUpdateConfirmation(params.id as number);
+        const oldValue = course[params.field];
+        let isChanged: boolean = false;
+        if (params.field === 'startAt') {
+            const dateOld = new Date(oldValue);
+            const dateNew = new Date(params.value as string);
+            isChanged = dateOld.getTime() !== dateNew.getTime();
+        } else {
+            isChanged = oldValue !== params.value;
+        }
+        if (isChanged) {
+            course[params.field] = params.value;
+            setNewCourseInfo(course);
+            showUpdateConfirmation(params.id as number);
+        }
     }
 
-    async function showDetails(id: number): Promise<void> {
-        setCurrentID(id);
-        // setCourseInfo(context.list.find(course => course.id === id));
-        setCourseInfo(await context.get!(id));
-        setInfoOpen(true);
+    function showDetails(id: number): void {
+        context.get!(id)
+            .then(course => setCourseInfo(course))
+            .then(() => setInfoOpen(true));
     }
 
     function showRemoveConfirmation(id: number): void {

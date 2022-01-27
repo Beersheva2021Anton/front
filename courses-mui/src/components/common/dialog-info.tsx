@@ -10,7 +10,7 @@ type DialogInfoProps = {
 
 const DialogInfo: FC<DialogInfoProps> = (props) => {
 
-    const { isVisible, onClose, data, properties } = { ...props };
+    const { isVisible, onClose, data, properties } = props;
 
     function mapObjectToItems(): ReactElement[] {
         let res: ReactElement[] = [];

@@ -87,12 +87,10 @@ export default class CoursesServiceRest implements CoursesService {
     publish(): Observable<CourseType[]> {
         return new Observable<CourseType[]>(subscriber => {
             const interval = setInterval(() => {
-                try {
-                    if (!!localStorage.getItem(AUTH_TOKEN)) {
-                        this.get().then(arr => subscriber.next(arr as CourseType[]));
-                    }
-                } catch(err) {
-                    subscriber.error(err);
+                if (!!localStorage.getItem(AUTH_TOKEN)) {
+                    this.get()
+                        .then(arr => subscriber.next(arr as CourseType[]))
+                        .catch(err => subscriber.error(err));
                 }
             }, pollingInterval);
             return () => clearInterval(interval);

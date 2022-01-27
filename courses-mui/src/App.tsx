@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { college, authService } from './config/service-config';
 import { UserData } from './models/common/user-data';
 import { RouteType } from "./models/common/route-type";
+import Alert from './components/common/alert';
 
 const theme = createTheme();
 
@@ -23,13 +24,12 @@ const theme = createTheme();
 //   },
 // };
 
-
-
 const App: FC = () => {
 
   const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
   const [relevantComponents, setRelevantComponents] = 
     useState<RouteType[]>(getRelevantComponents());
+  const [showAlertFl, setShowAlertFl] = useState<boolean>(false);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
@@ -51,22 +51,25 @@ const App: FC = () => {
   function getCoursesData(): Subscription {
     return college.publishCourses().subscribe({
       next(courses: CourseType[]) {
+        setShowAlertFl(false);
         updateContext(courses);
       },
       error(err) {
+        setShowAlertFl(true);
         console.log(err);
+        setTimeout(getCoursesData, 3000);
       }
     })
   }
 
   function getUserData(): Subscription {
     return authService.getUserData().subscribe({
-      next(data: UserData) {
+      next(data: UserData) {        
         currentList.userData = data;
         setCurrentList({...currentList});
       },
-      error(err) {
-        console.log(err);
+      error(err) {        
+        console.log(err);        
       }
     })
   }
@@ -103,6 +106,8 @@ const App: FC = () => {
           {getRoutes()}
           <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
         </Routes>
+        <Alert isVisible={showAlertFl} title='Server is unavailable' 
+          message='Please, contact the administrator' />
       </BrowserRouter>
     </ThemeProvider>
   </CoursesContext.Provider>
