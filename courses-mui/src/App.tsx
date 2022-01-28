@@ -8,7 +8,7 @@ import CoursesStore from './models/courses-store';
 import CoursesContext, { defaultCourses } from './store/context';
 import { Subscription } from 'rxjs';
 import { college, authService } from './config/service-config';
-import { UserData } from './models/common/user-data';
+import { nonAuthorizedUser, UserData } from './models/common/user-data';
 import { RouteType } from "./models/common/route-type";
 import Alert from './components/common/alert';
 
@@ -106,8 +106,9 @@ const App: FC = () => {
           {getRoutes()}
           <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
         </Routes>
-        <Alert isVisible={showAlertFl} title='Server is unavailable' 
-          message='Please, contact the administrator' />
+        {currentList.userData !== nonAuthorizedUser && <Alert isVisible={showAlertFl} 
+          title='Server is unavailable' 
+          message='Please, contact the administrator' />}
       </BrowserRouter>
     </ThemeProvider>
   </CoursesContext.Provider>
