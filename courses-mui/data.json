@@ -70,7 +70,7 @@
       "hoursNum": 284,
       "cost": 5854,
       "type": "QA",
-      "startAt": "2022-06-03T21:00:00.000Z",
+      "startAt": "2022-06-30T21:00:00.000Z",
       "dayEvening": [
         "Evening"
       ],
@@ -504,9 +504,9 @@
       "name": "QA Manual",
       "lecturer": "Moses",
       "hoursNum": 249,
-      "cost": 12342,
+      "cost": 12400,
       "type": "Programming",
-      "startAt": "2020-07-22T21:00:00.000Z",
+      "startAt": "2020-07-31T21:00:00.000Z",
       "dayEvening": [
         "Day",
         "Evening"

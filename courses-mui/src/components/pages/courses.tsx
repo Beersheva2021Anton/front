@@ -149,8 +149,14 @@ const Courses: FC = () => {
 
     function showUpdateConfirmation(params: GridCellEditCommitParams, oldValue: any): void {
         currentId.current = params.id as number;
+        const oldValueStr = params.field === 'startAt'
+            ? new Date(oldValue).toLocaleDateString()
+            : oldValue;
+        const newValueStr = params.field === 'startAt'
+            ? new Date(params.value as string).toLocaleDateString()
+            : params.value;
         confirmMessage.current = 
-            `Change ${params.field} '${oldValue}' to '${params.value}' for course with ID '${params.id}'?`;
+            `Change ${params.field} '${oldValueStr}' to '${newValueStr}' for course with ID '${params.id}'?`;
         setConfirmUpdate(true);
     }
 

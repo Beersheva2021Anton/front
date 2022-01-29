@@ -15,7 +15,10 @@ const DialogInfo: FC<DialogInfoProps> = (props) => {
     function mapObjectToItems(): ReactElement[] {
         let res: ReactElement[] = [];
         for (let property of properties) {
-            res.push(<ListItem key={property}>{`${property}: ${(data as any)[property]}`}</ListItem>);
+            res.push(<ListItem key={property}>{`${property}: ${
+                property === 'startAt' 
+                    ? new Date((data as any)[property]).toLocaleDateString()
+                    : (data as any)[property] }`}</ListItem>);
         }
         return res;
     }
