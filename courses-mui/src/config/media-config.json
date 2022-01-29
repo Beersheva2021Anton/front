@@ -1,0 +1,5 @@
+{
+    "small": ["name", "startAt"],
+    "medium": ["name", "lecturer", "startAt"],
+    "large": ["name", "lecturer", "hoursNum", "cost", "startAt"]
+}

@@ -22,7 +22,7 @@ const StatChart: FC<ChartProps> = props => {
     data.push({ interval: rawData[0].min, count: 0 });
     rawData.forEach(d => data.push({ interval: d.max, count: d.count }));
 
-    return <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    return <Box sx={{ display: 'flex', flexDirection: 'column', ml: 1 }}>
         <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography>
         <ResponsiveContainer width="80%" aspect={3}>
             <LineChart data={data}

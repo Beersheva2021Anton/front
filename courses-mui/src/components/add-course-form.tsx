@@ -1,10 +1,12 @@
 import { Box, Button, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
 import { FC, useState } from "react";
+import { Navigate } from "react-router-dom";
 import courseData from "../config/course-data.json";
+import { PATH_COURSES } from "../config/routes-config";
 import CourseType from "../models/course-type";
 
 type AddCourseProps = {
-    addCourseFn: (course: CourseType) => Promise<CourseType>;
+    addCourseFn: (course: CourseType) => void;
 }
 
 const AddCourseForm: FC<AddCourseProps> = props => {
@@ -19,6 +21,7 @@ const AddCourseForm: FC<AddCourseProps> = props => {
     let [timing, setTiming] = useState<string[]>([]);
     let [startAt, setStartAt] = useState<Date>();
     let [yearErr, setYearErr] = useState<string>('');
+    let [flNavigate, setFlNavigate] = useState<boolean>(false);
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -123,7 +126,8 @@ const AddCourseForm: FC<AddCourseProps> = props => {
         return new Date(Date.now()).toISOString().split('T')[0];
     }
 
-    function addCourse(): void {
+    function addCourse(event: any): void {
+        event.preventDefault();
         props.addCourseFn({
             name: courseName,
             lecturer: lecturer,
@@ -132,10 +136,11 @@ const AddCourseForm: FC<AddCourseProps> = props => {
             type: courseType,
             dayEvening: timing,
             startAt: startAt as Date
-        })
+        });
+        setFlNavigate(true);
     }
 
-    return <form onSubmit={() => addCourse()} onReset={() => clearForm()}>
+    return <form onSubmit={addCourse} onReset={clearForm}>
         <Typography variant="h2">Add New Course</Typography>
         <Box>
             <FormControl required sx={{ mb: 1, mr: 1, minWidth: 280 }}>
@@ -229,6 +234,7 @@ const AddCourseForm: FC<AddCourseProps> = props => {
                 Reset
             </Button>
         </Box>
+        { flNavigate && <Navigate to={PATH_COURSES}></Navigate>}
     </form>
 }
 

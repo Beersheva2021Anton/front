@@ -1,4 +1,4 @@
-import { Box, createTheme, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Box, createTheme, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import IntervalType from "../../models/interval-type";
 import { college } from "../../config/service-config";
@@ -39,13 +39,17 @@ const StatisticsCost: FC = () => {
             </form>
         </Box>
         <Grid container spacing={1}>
-            <Grid item xs={12} md={6} order={{ md: 2}}>
-                {statisticsData &&
-                    <StatChart title="Cost Chart" rawData={statisticsData as IntervalType[]} />}
+            <Grid item xs={12} md={6} order={{ md: 2 }}>
+                <Paper elevation={3}>
+                    {statisticsData &&
+                        <StatChart title="Cost Chart" rawData={statisticsData as IntervalType[]} />}
+                </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-                {statisticsData &&
-                    <StatTable title="Cost Table" rawData={statisticsData as IntervalType[]} />}
+                <Paper elevation={3}>
+                    {statisticsData &&
+                        <StatTable title="Cost Table" rawData={statisticsData as IntervalType[]} />}
+                </Paper>
             </Grid>
         </Grid>
     </Box>
