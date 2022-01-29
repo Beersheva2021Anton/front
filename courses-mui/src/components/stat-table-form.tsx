@@ -11,7 +11,7 @@ const StatTable: FC<TableProps> = props => {
 
   const { title, rawData } = props;
 
-  return <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+  return <Box sx={{ display: 'flex', flexDirection: 'column', ml: 1 }}>
     <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography>
     <Table size="small" sx={{ width: '80%', mb: 2, mr: 2 }}>
       <TableHead>

@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
-import { FC, ReactElement, useContext, useEffect, useMemo, useState } from "react";
+import { FC, ReactElement, useContext, useEffect, useMemo, useRef, useState } from "react";
 import CoursesContext from "../../store/context";
 import { UserData } from "../../models/common/user-data";
 import { DataGrid, GridActionsCellItem, GridCellEditCommitParams, GridCellValue, GridPreProcessEditCellProps, GridRowParams, GridRowsProp } from "@mui/x-data-grid";
@@ -15,13 +15,14 @@ import mediaConfig from "../../config/media-config.json";
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
     const [columns, setColumns] = useState<any[]>(getColumns(context.userData));
+    const rows = useMemo(() => getRows(context.list), [context.list]);
     const [confirmRemove, setConfirmRemove] = useState<boolean>(false);
     const [confirmUpdate, setConfirmUpdate] = useState<boolean>(false);
+    let confirmMessage = useRef<string>('');
     const [infoOpen, setInfoOpen] = useState<boolean>(false);
-    const [courseInfo, setCourseInfo] = useState<CourseType>();
-    const [newCourseInfo, setNewCourseInfo] = useState<CourseType>();
-    const [currentID, setCurrentID] = useState<number>(0);
-    const rows = useMemo(() => getRows(context.list), [context.list]);
+    let courseInfo = useRef<CourseType>();
+    let currentId = useRef<number>();
+    
 
     const mobilePortrait = useMediaQuery({ maxWidth: 600, orientation: 'portrait' }, undefined,
         () => filterCurrentColumns());
@@ -53,7 +54,7 @@ const Courses: FC = () => {
         ]
         if (isAdmin) {
             res.push(<GridActionsCellItem icon={<DeleteOutlineIcon />} label='Remove'
-                onClick={() => showRemoveConfirmation(itemId)} />)
+                onClick={() => showRemoveConfirmation(itemId)} showInMenu />)
         }
         return res;
     }
@@ -115,7 +116,15 @@ const Courses: FC = () => {
 
     async function onEdit(params: GridCellEditCommitParams): Promise<void> {
         let course = await context.get!(params.id as number) as any;
-        const oldValue = course[params.field];
+        const oldValue = course[params.field];        
+        if (isChanged(oldValue, params)) {
+            course[params.field] = params.value;
+            courseInfo.current = course;
+            showUpdateConfirmation(params, oldValue);
+        }
+    }
+
+    function isChanged(oldValue: any, params: GridCellEditCommitParams): boolean {
         let isChanged: boolean = false;
         if (params.field === 'startAt') {
             const dateOld = new Date(oldValue);
@@ -124,39 +133,37 @@ const Courses: FC = () => {
         } else {
             isChanged = oldValue !== params.value;
         }
-        if (isChanged) {
-            course[params.field] = params.value;
-            setNewCourseInfo(course);
-            showUpdateConfirmation(params.id as number);
-        }
+        return isChanged;
     }
 
     function showDetails(id: number): void {
         context.get!(id)
-            .then(course => setCourseInfo(course))
+            .then(course => courseInfo.current = course)
             .then(() => setInfoOpen(true));
     }
 
     function showRemoveConfirmation(id: number): void {
-        setCurrentID(id);
+        currentId.current = id;
         setConfirmRemove(true);
     }
 
-    function showUpdateConfirmation(id: number): void {
-        setCurrentID(id);
+    function showUpdateConfirmation(params: GridCellEditCommitParams, oldValue: any): void {
+        currentId.current = params.id as number;
+        confirmMessage.current = 
+            `Change ${params.field} '${oldValue}' to '${params.value}' for course with ID '${params.id}'?`;
         setConfirmUpdate(true);
     }
 
     function handleRemove(status: boolean): void {
         if (status) {
-            context.remove!(currentID);
+            context.remove!(currentId.current!);
         }
         setConfirmRemove(false);
     }
 
     function handleUpdate(status: boolean): void {
         if (status) {
-            context.update!(currentID, newCourseInfo!);
+            context.update!(currentId.current!, courseInfo.current!);
         }
         setConfirmUpdate(false);
     }
@@ -170,9 +177,8 @@ const Courses: FC = () => {
             },
         },
         '& .Mui-error': {
-            bgcolor: (theme) =>
-                `rgb(126,10,15, ${theme.palette.mode === 'dark' ? 0 : 0.1})`,
-            color: (theme) => (theme.palette.mode === 'dark' ? '#ff4343' : '#750f0f'),
+            bgcolor: '#F39B9B',
+            color: '#FFFFFF'
         }
     }}>
         <Typography variant="h2">Courses</Typography>
@@ -180,12 +186,12 @@ const Courses: FC = () => {
             <DataGrid rows={rows} columns={columns} onCellEditCommit={onEdit} />
         </Paper>
         <Confirmation isVisible={confirmRemove} title="Course Remove"
-            message={`Are you sure you want to remove course with ID '${currentID}'?`}
+            message={`Are you sure you want to remove course with ID '${currentId.current!}'?`}
             onClose={handleRemove} />
         <Confirmation isVisible={confirmUpdate} title="Course Update"
-            message={`Are you sure you want to update course with ID '${currentID}'?`}
+            message={confirmMessage.current}
             onClose={handleUpdate} />
-        <DialogInfo isVisible={infoOpen} onClose={() => setInfoOpen(false)} data={courseInfo!}
+        <DialogInfo isVisible={infoOpen} onClose={() => setInfoOpen(false)} data={courseInfo.current!}
             properties={["id", "name", "type", "lecturer", "hoursNum", "cost", "dayEvening", "startAt"]} />
     </Box>
 }

@@ -15,7 +15,7 @@
     {
       "name": "Java Core",
       "lecturer": "Moses",
-      "hoursNum": 772,
+      "hoursNum": 770,
       "cost": 13600,
       "type": "Programming",
       "startAt": "2021-04-23T21:00:00.000Z",
@@ -211,11 +211,11 @@
     },
     {
       "name": "QA Automation",
-      "lecturer": "Yosef",
+      "lecturer": "Abraham",
       "hoursNum": 602,
-      "cost": 12714,
+      "cost": 12750,
       "type": "QA",
-      "startAt": "2022-07-02T21:00:00.000Z",
+      "startAt": "2022-08-06T21:00:00.000Z",
       "dayEvening": [
         "Day"
       ],
@@ -253,7 +253,7 @@
       "name": "Java Technologies",
       "lecturer": "Yosef",
       "hoursNum": 370,
-      "cost": 7338,
+      "cost": 7330,
       "type": "QA",
       "startAt": "2022-03-24T22:00:00.000Z",
       "dayEvening": [
@@ -318,7 +318,7 @@
       "name": "Java Technologies",
       "lecturer": "Asher",
       "hoursNum": 709,
-      "cost": 18970,
+      "cost": 12400,
       "type": "QA",
       "startAt": "2021-09-21T21:00:00.000Z",
       "dayEvening": [
@@ -343,7 +343,7 @@
     },
     {
       "name": "QA Manual",
-      "lecturer": "Yosef",
+      "lecturer": "Moses",
       "hoursNum": 496,
       "cost": 9990,
       "type": "QA",
@@ -356,24 +356,10 @@
       "userId": 1
     },
     {
-      "name": "HTML",
-      "lecturer": "Moses",
-      "hoursNum": 725,
-      "cost": 17272,
-      "type": "QA",
-      "startAt": "2021-03-21T22:00:00.000Z",
-      "dayEvening": [
-        "Day",
-        "Evening"
-      ],
-      "id": 455371,
-      "userId": 1
-    },
-    {
       "name": "QA Manual",
       "lecturer": "Asher",
       "hoursNum": 96,
-      "cost": 16124,
+      "cost": 6200,
       "type": "Programming",
       "startAt": "2022-03-23T22:00:00.000Z",
       "dayEvening": [
@@ -553,6 +539,19 @@
         "Evening"
       ],
       "id": 651424,
+      "userId": 1
+    },
+    {
+      "name": "QA Manual",
+      "lecturer": "Moses",
+      "hoursNum": 240,
+      "cost": 11500,
+      "type": "QA",
+      "dayEvening": [
+        "Day"
+      ],
+      "startAt": "2022-05-01T00:00:00.000Z",
+      "id": 533605,
       "userId": 1
     }
   ]
