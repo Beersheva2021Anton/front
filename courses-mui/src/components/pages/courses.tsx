@@ -14,12 +14,13 @@ import mediaConfig from "../../config/media-config.json";
 
 const Courses: FC = () => {
     const context = useContext(CoursesContext);
+    const [renderFl, setRenderFl] = useState<boolean>(false);
     const [columns, setColumns] = useState<any[]>(getColumns(context.userData));
-    const rows = useMemo(() => getRows(context.list), [context.list]);
+    const rows = useMemo(() => getRows(context.list), [context.list, renderFl]);
     const [confirmRemove, setConfirmRemove] = useState<boolean>(false);
     const [confirmUpdate, setConfirmUpdate] = useState<boolean>(false);
     let confirmMessage = useRef<string>('');
-    const [infoOpen, setInfoOpen] = useState<boolean>(false);
+    const [infoOpen, setInfoOpen] = useState<boolean>(false);    
     let courseInfo = useRef<CourseType>();
     let currentId = useRef<number>();
     
@@ -172,6 +173,7 @@ const Courses: FC = () => {
             context.update!(currentId.current!, courseInfo.current!);
         }
         setConfirmUpdate(false);
+        setRenderFl(!renderFl);
     }
 
     return <Box marginX='1em' sx={{

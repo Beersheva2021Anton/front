@@ -46,7 +46,7 @@ const App: FC = () => {
 
   useEffect(() => {
     setRelevantComponents(getRelevantComponents());
-  }, [currentList.userData]);
+  }, [currentList]);
 
   function getCoursesData(): Subscription {
     return college.publishCourses().subscribe({

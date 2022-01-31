@@ -50,7 +50,7 @@ export default class CoursesServiceRest implements CoursesService {
             .then(r => r.ok) as Promise<boolean>;
     }
 
-    get(id?: number): Promise<CourseType[]> | Promise<CourseType> {
+    get(id?: number): Promise<CourseType | CourseType[]> {
         return id === undefined
             ? getResponse(this.url)
                 .then(r => r.json()) as Promise<CourseType[]>

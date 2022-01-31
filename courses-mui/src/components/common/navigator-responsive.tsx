@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { FC } from "react";
+import { FC } from "react";
 import { useMediaQuery } from "react-responsive";
 import { RouteType } from "../../models/common/route-type";
 import NavigatorDrawer from "./navigator-drawer";
