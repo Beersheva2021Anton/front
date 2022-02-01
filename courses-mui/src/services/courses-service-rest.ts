@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { authService } from "../config/service-config";
 import CourseType from "../models/course-type";
 import CoursesService from "./courses-service";
 
@@ -19,7 +20,7 @@ async function getResponse(url: string, method?: string, body?: string): Promise
         body: body
     });
     if (response.status === 401 || response.status === 403) {
-        localStorage.removeItem(AUTH_TOKEN);
+        authService.logout();
         throw new Error('NOT_AUTHORIZED');
     }
     return response;
