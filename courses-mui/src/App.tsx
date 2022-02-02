@@ -69,7 +69,7 @@ const App: FC = () => {
         setCurrentList({...currentList});
       },
       error(err) {        
-        console.log(err);        
+        console.log(err);     
       }
     })
   }

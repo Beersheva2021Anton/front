@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import AddCourse from "../components/pages/add-course";
 import Courses from "../components/pages/courses";
 import CourseGenerator from "../components/pages/generate-courses";

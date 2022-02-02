@@ -1,8 +1,8 @@
 import AuthService from "./auth-service";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { authState } from "rxfire/auth";
-import { Observable } from "rxjs";
-import { map, mergeMap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { map, mergeMap, catchError } from "rxjs/operators";
 import { collectionData } from 'rxfire/firestore';
 import { LoginData } from "../models/common/login-data";
 import { nonAuthorizedUser, UserData } from "../models/common/user-data";
@@ -14,7 +14,7 @@ export default class AuthServiceFire implements AuthService {
     private authFire = getAuth(appFire);
     private fireCol: CollectionReference;
 
-    constructor(private adminColName: string) {
+    constructor(adminColName: string) {
         const db = getFirestore(appFire);
         this.fireCol = collection(db, adminColName);
     }
@@ -36,9 +36,13 @@ export default class AuthServiceFire implements AuthService {
     }
 
     login(loginData: LoginData): Promise<boolean> {
-        return signInWithEmailAndPassword(this.authFire, loginData.email, loginData.password)
-            .then(() => true)
-            .catch(() => false);
+        return !!loginData.provider
+            ? signInWithPopup(this.authFire, loginData.provider!)
+                .then(() => true)
+                .catch(() => false)
+            : signInWithEmailAndPassword(this.authFire, loginData.email!, loginData.password!)
+                .then(() => true)
+                .catch(() => false);
     }
 
     logout(): Promise<boolean> {

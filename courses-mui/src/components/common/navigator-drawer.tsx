@@ -1,12 +1,15 @@
 import { Box, Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { RouteType } from "../../models/common/route-type";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
+import CoursesContext from "../../store/context";
+import { PATH_LOGOUT } from "../../config/routes-config";
 
 const NavigatorDrawer: FC<{ items: RouteType[] }> = (props) => {
 
     const location = useLocation();
+    const context = useContext(CoursesContext);
     const [visibleDrawer, setVisibleDrawer] = useState(false);
     const [currentItem, setCurrentItem] =
         useState(getCurrentItem(location.pathname, props.items));
@@ -28,7 +31,9 @@ const NavigatorDrawer: FC<{ items: RouteType[] }> = (props) => {
         return props.items.map(item =>
             <ListItem key={item.label} component={Link} to={item.path} 
                 onClick={() => setCurrentItem(item.label)}>
-                <ListItemText disableTypography sx={{ fontSize: '1em' }}>{item.label}</ListItemText>
+                <ListItemText disableTypography sx={{ fontSize: '1em' }}>
+                    {item.path === PATH_LOGOUT ? context.userData.displayedName : item.label}
+                </ListItemText>
             </ListItem>)
     }
 
