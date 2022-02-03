@@ -1,8 +1,8 @@
 import AuthService from "./auth-service";
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { authState } from "rxfire/auth";
-import { Observable, of } from "rxjs";
-import { map, mergeMap, catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 import { collectionData } from 'rxfire/firestore';
 import { LoginData } from "../models/common/login-data";
 import { nonAuthorizedUser, UserData } from "../models/common/user-data";
@@ -21,7 +21,7 @@ export default class AuthServiceFire implements AuthService {
 
     getUserData(): Observable<UserData> {
         return authState(this.authFire).pipe(
-            mergeMap(user => collectionData(this.fireCol).pipe(
+            switchMap(user => collectionData(this.fireCol).pipe(
                 map(admins => (
                     !!user
                         ? {
