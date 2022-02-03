@@ -68,7 +68,7 @@
       "name": "Java Technologies",
       "lecturer": "Naftali",
       "hoursNum": 284,
-      "cost": 5854,
+      "cost": 5850,
       "type": "QA",
       "startAt": "2022-06-30T21:00:00.000Z",
       "dayEvening": [
@@ -83,7 +83,7 @@
       "hoursNum": 330,
       "cost": 8037,
       "type": "QA",
-      "startAt": "2021-02-01T22:00:00.000Z",
+      "startAt": "2020-02-01T22:00:00.000Z",
       "dayEvening": [
         "Evening"
       ],
@@ -334,7 +334,7 @@
       "hoursNum": 335,
       "cost": 9562,
       "type": "Programming",
-      "startAt": "2021-05-09T21:00:00.000Z",
+      "startAt": "2022-05-09T21:00:00.000Z",
       "dayEvening": [
         "Day"
       ],

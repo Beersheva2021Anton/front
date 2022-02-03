@@ -10,8 +10,9 @@
 
 # production
 /build
-courses-mui/data.json
+data.json
 .vscode/
+src/config/fire-config.ts
 
 # misc
 .DS_Store

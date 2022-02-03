@@ -9,8 +9,8 @@ const Login: FC = () => {
     function loginFunction(loginData: LoginData): Promise<boolean>  {
         return authService.login(loginData);
     }
-    function passValidationFn(password: string): string {
-        return password.length < passwordLength
+    function passValidationFn(password?: string): string {
+        return !password || password.length < passwordLength
             ? `Password length cannot be less than ${passwordLength}`
             : ''
     }

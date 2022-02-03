@@ -46,7 +46,7 @@ const App: FC = () => {
 
   useEffect(() => {
     setRelevantComponents(getRelevantComponents());
-  }, [currentList.userData]);
+  }, [currentList]);
 
   function getCoursesData(): Subscription {
     return college.publishCourses().subscribe({
@@ -54,7 +54,7 @@ const App: FC = () => {
         setShowAlertFl(false);
         updateContext(courses);
       },
-      error(err: Error) {
+      error(err) {
         console.log(err);
         err.message !== 'NOT_AUTHORIZED' && setShowAlertFl(true);
         setTimeout(getCoursesData, 3000);
@@ -69,7 +69,7 @@ const App: FC = () => {
         setCurrentList({...currentList});
       },
       error(err) {        
-        console.log(err);        
+        console.log(err);     
       }
     })
   }
