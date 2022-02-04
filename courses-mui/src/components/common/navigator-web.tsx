@@ -1,14 +1,15 @@
 import { Tab, Tabs } from "@mui/material";
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { PATH_LOGOUT } from "../../config/routes-config";
 import { RouteType } from "../../models/common/route-type";
-import CoursesContext from "../../store/context";
+import { userDataSelector } from "../../redux/store";
 
 const NavigatorWeb: FC<{ items: RouteType[] }> = (props) => {
 
     const location = useLocation();
-    const context = useContext(CoursesContext);
+    const userData = useSelector(userDataSelector);
     const [activeTabIndex, setActiveTab] =
         useState(getInitialTabIndex(location.pathname, props.items));
 
@@ -19,7 +20,7 @@ const NavigatorWeb: FC<{ items: RouteType[] }> = (props) => {
     function getTabs(): ReactNode[] {
         return props.items.map(item =>
             <Tab key={item.label} component={Link} to={item.path} 
-            label={item.path === PATH_LOGOUT ? context.userData.displayedName : item.label } />)
+            label={item.path === PATH_LOGOUT ? userData.displayedName : item.label } />)
     }
 
     function onChangeHandler(event: any, newValue: number) {

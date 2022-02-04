@@ -11,12 +11,17 @@ import DialogInfo from "../common/dialog-info";
 import { useMediaQuery } from "react-responsive";
 import courseData from "../../config/course-data.json";
 import mediaConfig from "../../config/media-config.json";
+import { useSelector } from "react-redux";
+import { coursesSelector, userDataSelector } from "../../redux/store";
 
 const Courses: FC = () => {
+
     const context = useContext(CoursesContext);
+    const userData: UserData = useSelector(userDataSelector);
+    const coursesList: CourseType[] = useSelector(coursesSelector);
     const [renderFl, setRenderFl] = useState<boolean>(false);
-    const [columns, setColumns] = useState<any[]>(getColumns(context.userData));
-    const rows = useMemo(() => getRows(context.list), [context.list, renderFl]);
+    const [columns, setColumns] = useState<any[]>(getColumns(userData));
+    const rows = useMemo(() => getRows(coursesList), [coursesList, renderFl]);
     const [confirmRemove, setConfirmRemove] = useState<boolean>(false);
     const [confirmUpdate, setConfirmUpdate] = useState<boolean>(false);
     let confirmMessage = useRef<string>('');
@@ -31,18 +36,18 @@ const Courses: FC = () => {
 
     useEffect(() => {
         filterCurrentColumns();
-    }, [context.userData]);
+    }, [userData]);
 
     function filterCurrentColumns() {
         let columnsMedia: any[] = [];
         if (mobilePortrait) {
-            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' ||
+            columnsMedia = getColumns(userData).filter(column => column.field === 'actions' ||
                 mediaConfig.small.indexOf(column.field) >= 0);
         } else if (mobileOrTablet) {
-            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' ||
+            columnsMedia = getColumns(userData).filter(column => column.field === 'actions' ||
                 mediaConfig.medium.indexOf(column.field) >= 0);
         } else {
-            columnsMedia = getColumns(context.userData).filter(column => column.field === 'actions' ||
+            columnsMedia = getColumns(userData).filter(column => column.field === 'actions' ||
                 mediaConfig.large.indexOf(column.field) >= 0);
         }
         setColumns(columnsMedia);

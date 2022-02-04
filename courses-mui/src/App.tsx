@@ -4,13 +4,15 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
 import { devRoutes, routes } from './config/routes-config';
 import CourseType from './models/course-type';
-import CoursesStore from './models/courses-store';
 import CoursesContext, { defaultCourses } from './store/context';
 import { Subscription } from 'rxjs';
 import { college, authService } from './config/service-config';
 import { nonAuthorizedUser, UserData } from './models/common/user-data';
 import { RouteType } from "./models/common/route-type";
 import Alert from './components/common/alert';
+import {useDispatch, useSelector} from 'react-redux';
+import { coursesSelector, userDataSelector } from './redux/store';
+import { setCourses, setUserData } from './redux/actions';
 
 const theme = createTheme();
 
@@ -26,7 +28,9 @@ const theme = createTheme();
 
 const App: FC = () => {
 
-  const [currentList, setCurrentList] = useState<CoursesStore>(defaultCourses);
+  const userData: UserData = useSelector(userDataSelector);
+  const coursesList: CourseType[] = useSelector(coursesSelector);
+  const dispatch = useDispatch();
   const [relevantComponents, setRelevantComponents] = 
     useState<RouteType[]>(getRelevantComponents());
   const [showAlertFl, setShowAlertFl] = useState<boolean>(false);
@@ -41,12 +45,15 @@ const App: FC = () => {
     return () => {
       coursesDataSubscr.unsubscribe();
       userDataSubscr.unsubscribe();
+      if (process.env.NODE_ENV === 'development') {
+        routes.splice(2, 1);
+      }
     };
   }, []);
 
   useEffect(() => {
     setRelevantComponents(getRelevantComponents());
-  }, [currentList]);
+  }, [coursesList, userData]);
 
   function getCoursesData(): Subscription {
     return college.publishCourses().subscribe({
@@ -64,9 +71,8 @@ const App: FC = () => {
 
   function getUserData(): Subscription {
     return authService.getUserData().subscribe({
-      next(data: UserData) {        
-        currentList.userData = data;
-        setCurrentList({...currentList});
+      next(data: UserData) {
+        dispatch(setUserData(data));
       },
       error(err) {        
         console.log(err);     
@@ -75,8 +81,7 @@ const App: FC = () => {
   }
 
   function updateContext(courses: CourseType[]): void {
-    currentList.list = courses;
-    setCurrentList({ ...currentList });
+    dispatch(setCourses(courses));
   }
 
   function getRoutes(): ReactNode[] {
@@ -86,10 +91,10 @@ const App: FC = () => {
 
   function getRelevantComponents(): RouteType[] {
     let componentsToRender: RouteType[] = [];    
-    if (!currentList.userData.userName){
+    if (!userData.userName){
       componentsToRender = routes.filter(r => !r.authenticated);
     } else {
-      if (currentList.userData.isAdmin) {
+      if (userData.isAdmin) {
         componentsToRender = routes.filter(r => !!r.authenticated);
       } else {
         componentsToRender = routes.filter(r => !!r.authenticated && !r.adminOnly);
@@ -98,7 +103,7 @@ const App: FC = () => {
     return componentsToRender;
   }
 
-  return <CoursesContext.Provider value={currentList}>
+  return <CoursesContext.Provider value={defaultCourses}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <NavigatorResponsive items={relevantComponents} />
@@ -106,7 +111,7 @@ const App: FC = () => {
           {getRoutes()}
           <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
         </Routes>
-        {currentList.userData !== nonAuthorizedUser && <Alert isVisible={showAlertFl} 
+        {userData !== nonAuthorizedUser && <Alert isVisible={showAlertFl} 
           title='Server is unavailable' 
           message='Please, contact the administrator' />}
       </BrowserRouter>

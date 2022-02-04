@@ -1,4 +1,4 @@
-import { Box, createTheme, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
+import { Box, FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import IntervalType from "../../models/interval-type";
 import { college } from "../../config/service-config";

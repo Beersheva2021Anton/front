@@ -1,12 +1,9 @@
 import { createContext } from "react";
-import { nonAuthorizedUser } from "../models/common/user-data";
 import CoursesStore from "../models/courses-store";
 import { college } from "../config/service-config";
 import CourseType from "../models/course-type";
 
-export const defaultCourses: CoursesStore = { 
-    list:[], 
-    userData: nonAuthorizedUser,
+export const defaultCourses: CoursesStore = {     
     add: addCourse,
     get: getCourse,
     remove: removeCourse,
