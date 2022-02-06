@@ -1,14 +1,16 @@
 import { Box } from "@mui/material";
-import { FC, useContext } from "react";
+import { FC } from "react";
+import { useDispatch } from "react-redux";
 import CourseType from "../../models/course-type";
+import { addCourseAction } from "../../redux/actions";
 import AddCourseForm from "../add-course-form";
-import CoursesContext from "../../store/context";
 
 const AddCourse: FC = () => {
-    const context = useContext(CoursesContext);                                                       
+    
+    const dispatch = useDispatch();
 
     function addCourseFn(course: CourseType): void {
-        return context.add!(course);
+        dispatch(addCourseAction(course));
     }
 
     return <Box marginX='1em'>

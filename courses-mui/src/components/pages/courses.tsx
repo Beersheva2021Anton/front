@@ -1,6 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
-import { FC, ReactElement, useContext, useEffect, useMemo, useRef, useState } from "react";
-import CoursesContext from "../../store/context";
+import { FC, ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { UserData } from "../../models/common/user-data";
 import { DataGrid, GridActionsCellItem, GridCellEditCommitParams, GridCellValue, GridPreProcessEditCellProps, GridRowParams, GridRowsProp } from "@mui/x-data-grid";
 import CourseType from "../../models/course-type";
@@ -11,12 +10,13 @@ import DialogInfo from "../common/dialog-info";
 import { useMediaQuery } from "react-responsive";
 import courseData from "../../config/course-data.json";
 import mediaConfig from "../../config/media-config.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { coursesSelector, userDataSelector } from "../../redux/store";
+import { removeCourseAction, updateCourseAction } from "../../redux/actions";
 
 const Courses: FC = () => {
 
-    const context = useContext(CoursesContext);
+    const dispatch = useDispatch();
     const userData: UserData = useSelector(userDataSelector);
     const coursesList: CourseType[] = useSelector(coursesSelector);
     const [renderFl, setRenderFl] = useState<boolean>(false);
@@ -121,7 +121,7 @@ const Courses: FC = () => {
     }
 
     async function onEdit(params: GridCellEditCommitParams): Promise<void> {
-        let course = await context.get!(params.id as number) as any;
+        const course = coursesList.find(c => c.id === params.id) as any;
         const oldValue = course[params.field];        
         if (isChanged(oldValue, params)) {
             course[params.field] = params.value;
@@ -143,9 +143,9 @@ const Courses: FC = () => {
     }
 
     function showDetails(id: number): void {
-        context.get!(id)
-            .then(course => courseInfo.current = course)
-            .then(() => setInfoOpen(true));
+        const currentCourse = coursesList.find(course => course.id === id);
+        courseInfo.current = currentCourse;
+        setInfoOpen(true);
     }
 
     function showRemoveConfirmation(id: number): void {
@@ -168,14 +168,14 @@ const Courses: FC = () => {
 
     function handleRemove(status: boolean): void {
         if (status) {
-            context.remove!(currentId.current!);
+            dispatch(removeCourseAction(currentId.current!));
         }
         setConfirmRemove(false);
     }
 
     function handleUpdate(status: boolean): void {
         if (status) {
-            context.update!(currentId.current!, courseInfo.current!);
+            dispatch(updateCourseAction(currentId.current!, courseInfo.current!));
         }
         setConfirmUpdate(false);
         setRenderFl(!renderFl);

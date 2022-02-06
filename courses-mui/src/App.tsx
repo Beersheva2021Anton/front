@@ -4,15 +4,15 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import NavigatorResponsive from './components/common/navigator-responsive';
 import { devRoutes, routes } from './config/routes-config';
 import CourseType from './models/course-type';
-import CoursesContext, { defaultCourses } from './store/context';
 import { Subscription } from 'rxjs';
 import { college, authService } from './config/service-config';
 import { nonAuthorizedUser, UserData } from './models/common/user-data';
 import { RouteType } from "./models/common/route-type";
 import Alert from './components/common/alert';
 import {useDispatch, useSelector} from 'react-redux';
-import { coursesSelector, userDataSelector } from './redux/store';
-import { setCourses, setUserData } from './redux/actions';
+import { coursesSelector, errCodeSelector, userDataSelector } from './redux/store';
+import { setCourses, setErrCode, setUserData } from './redux/actions';
+import ErrorType from './models/common/error-types';
 
 const theme = createTheme();
 
@@ -30,6 +30,7 @@ const App: FC = () => {
 
   const userData: UserData = useSelector(userDataSelector);
   const coursesList: CourseType[] = useSelector(coursesSelector);
+  const code: ErrorType = useSelector(errCodeSelector); // TODO global err handling
   const dispatch = useDispatch();
   const [relevantComponents, setRelevantComponents] = 
     useState<RouteType[]>(getRelevantComponents());
@@ -63,7 +64,8 @@ const App: FC = () => {
       },
       error(err) {
         console.log(err);
-        err.message !== 'NOT_AUTHORIZED' && setShowAlertFl(true);
+        dispatch(setErrCode(err));
+        code === ErrorType.SERVER_UNAVAILABLE && setShowAlertFl(true);
         setTimeout(getCoursesData, 3000);
       }
     })
@@ -103,20 +105,18 @@ const App: FC = () => {
     return componentsToRender;
   }
 
-  return <CoursesContext.Provider value={defaultCourses}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <NavigatorResponsive items={relevantComponents} />
-        <Routes>
-          {getRoutes()}
-          <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
-        </Routes>
-        {userData !== nonAuthorizedUser && <Alert isVisible={showAlertFl} 
-          title='Server is unavailable' 
-          message='Please, contact the administrator' />}
-      </BrowserRouter>
-    </ThemeProvider>
-  </CoursesContext.Provider>
+  return <ThemeProvider theme={theme}>
+  <BrowserRouter>
+    <NavigatorResponsive items={relevantComponents} />
+    <Routes>
+      {getRoutes()}
+      <Route path='*' element={<Navigate to={relevantComponents[0].path} />} />
+    </Routes>
+    {userData !== nonAuthorizedUser && <Alert isVisible={showAlertFl} 
+      title='Server is unavailable' 
+      message='Please, contact the administrator' />}
+  </BrowserRouter>
+</ThemeProvider>
 }
 
 export default App;

@@ -20,9 +20,9 @@ export default class AuthServiceFire implements AuthService {
     }
 
     getUserData(): Observable<UserData> {
-        return authState(this.authFire).pipe(
-            switchMap(user => collectionData(this.fireCol).pipe(
-                map(admins => (
+        return collectionData(this.fireCol).pipe(
+            switchMap(admins => authState(this.authFire).pipe(
+                map(user => (
                     !!user
                         ? {
                             userName: user.uid,

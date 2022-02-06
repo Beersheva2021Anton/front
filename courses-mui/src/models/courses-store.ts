@@ -7,4 +7,4 @@ type CoursesStore = {
     update?: (id: number, course: CourseType) => void;
 }
 
-export default CoursesStore;
+// export default CoursesStore;

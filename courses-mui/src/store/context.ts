@@ -1,16 +1,15 @@
 import { createContext } from "react";
-import CoursesStore from "../models/courses-store";
 import { college } from "../config/service-config";
 import CourseType from "../models/course-type";
 
-export const defaultCourses: CoursesStore = {     
-    add: addCourse,
-    get: getCourse,
-    remove: removeCourse,
-    update: updateCourse
-};
-const CoursesContext = createContext<CoursesStore>(defaultCourses);
-export default CoursesContext;
+// export const defaultCourses: CoursesStore = {     
+//     add: addCourse,
+//     get: getCourse,
+//     remove: removeCourse,
+//     update: updateCourse
+// };
+// const CoursesContext = createContext<CoursesStore>(defaultCourses);
+// export default CoursesContext;
 
 function removeCourse(id: number): Promise<CourseType> {
     return college.removeCourse(id);

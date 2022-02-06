@@ -1,11 +1,12 @@
 import CoursesService from "./courses-service";
 import firebase, { collection, doc, getDoc, setDoc, getFirestore, deleteDoc, getDocs, DocumentData } from 'firebase/firestore';
 import appFire from "../config/fire-config";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { collectionData } from 'rxfire/firestore';
 import CourseType from "../models/course-type";
-import {catchError} from "rxjs/operators";
 import { authService } from "../config/service-config";
+import ErrorType from "../models/common/error-types";
 
 export default class CoursesServiceFirestore implements CoursesService {
 
@@ -18,32 +19,35 @@ export default class CoursesServiceFirestore implements CoursesService {
     async add(course: CourseType): Promise<CourseType> {
         try {
             await this.modifyAndWriteCourse(course);
-        } catch(err) {
+            return course;
+        } catch (err) {
             this.handleError(err);
-        }        
-        return course;
+        }
+        throw new Error('Server error occured');
     }
 
     async remove(id: number): Promise<CourseType> {
-        const course = await this.get(id);
-        const docRef = doc(this.fireCol, id.toString());
+
         try {
+            const course = await this.get(id);
+            const docRef = doc(this.fireCol, id.toString());
             await deleteDoc(docRef);
-        } catch(err) {
+            return course as CourseType;
+        } catch (err) {
             this.handleError(err);
-        }        
-        return course as CourseType;
+        }
+        throw new Error('Server error occured');
     }
 
     async exists(id: number): Promise<boolean> {
-        const docRef = doc(this.fireCol, id.toString());
         try {
+            const docRef = doc(this.fireCol, id.toString());
             const docSnap = await getDoc(docRef);
             return docSnap.exists();
-        } catch(err) {
+        } catch (err) {
             this.handleError(err);
-        }        
-        throw new Error('Unexpected error');
+        }
+        throw new Error('Server error occured');
     }
 
     async get(id?: number): Promise<CourseType | CourseType[]> {
@@ -56,28 +60,26 @@ export default class CoursesServiceFirestore implements CoursesService {
                 const colSnap = await getDocs(this.fireCol);
                 return colSnap.docs.map(doc => this.convertDateField(doc));
             }
-        } catch(err) {
+        } catch (err) {
             this.handleError(err);
         }
-        throw new Error('Unexpected error');
+        throw new Error('Server error occured');
     }
 
     async update(id: number, course: CourseType): Promise<CourseType> {
-        const oldCourse = await this.get(id);
         try {
+            const oldCourse = await this.get(id);
             await this.modifyAndWriteCourse(course);
-        } catch(err) {
+            return oldCourse as CourseType;
+        } catch (err) {
             this.handleError(err);
         }
-        return oldCourse as CourseType;
+        throw new Error('Server error occured');
     }
 
-    publish(): Observable<CourseType[]> {
+    publish(): Observable<any> {
         return (collectionData(this.fireCol) as Observable<CourseType[]>)
-            .pipe(catchError(err => {
-                this.handleError(err);
-                throw new Error('Unexpected error');
-            }));
+            .pipe(catchError(err => from(this.handleError(err))));
     }
 
     private async modifyAndWriteCourse(course: CourseType): Promise<void> {
@@ -91,11 +93,11 @@ export default class CoursesServiceFirestore implements CoursesService {
         return course;
     }
 
-    private handleError(err: any): void {
+    private handleError(err: any): any {
         if (err.code) {
             authService.logout();
-            throw new Error('NOT_AUTHORIZED');
+            return ErrorType.AUTH_ERROR;
         }
-        throw new Error('SERVER_UNAVAILABLE');
+        return ErrorType.SERVER_UNAVAILABLE;
     }
 }
